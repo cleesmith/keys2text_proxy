@@ -154,7 +154,8 @@ async def chat_completion(request: Request):
     model_handler = model_to_module.get(model_requested, default_handler)[response_type]
 
     # print(f"POST: /v1/chat/completions in chat_completion:\nmodel_requested={model_requested}\nstream_requested={stream_requested}\nresponse_type={response_type}\nmodel_handler={model_handler}\n***************\n")
-    # print(f"**************************\ngoogle models:\n{await google_models()}\n**************************\n")
+
+    print(f"**************************\ngoogle models:\n{await google_models()}\n**************************\n")
 
     if stream_requested:
         return StreamingResponse(model_handler(request_dict, CHAT_FILE), media_type="text/event-stream")

@@ -21,7 +21,9 @@ async def google_models():
 	try:
 		genai.configure(api_key=os.environ['GEMINI_API_KEY'])
 		models = []
-		for model in genai.list_models(request_options={"timeout": 5.0}):
+		list_of_models = genai.list_models(request_options={"timeout": 5.0})
+		print(f"\ngoogle_models:\n{list_of_models}\n")
+		for model in list_of_models:
 			models.append(model.name)
 		return sorted(models)
 	except Exception as e:
