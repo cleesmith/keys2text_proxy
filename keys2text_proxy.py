@@ -12,32 +12,35 @@ from fastapi.responses import StreamingResponse, JSONResponse
 import uvicorn
 from contextlib import asynccontextmanager
 
-from api_mock       import chat_completion_stream as mock_chat_stream,      chat_completion_json as mock_chat_json
+from api_mock       import chat_completion_stream as mock_chat_stream,       chat_completion_json as mock_chat_json
 from api_anthropic  import anthropic_models
-from api_anthropic  import chat_completion_stream as anthropic_chat_stream, chat_completion_json as anthropic_chat_json
+from api_anthropic  import chat_completion_stream as anthropic_chat_stream,  chat_completion_json as anthropic_chat_json
 from api_google     import google_models
-from api_google     import chat_completion_stream as gemini_chat_stream,    chat_completion_json as gemini_chat_json
+from api_google     import chat_completion_stream as gemini_chat_stream,     chat_completion_json as gemini_chat_json
 from api_groq       import groq_models
-from api_groq       import chat_completion_stream as groq_chat_stream,      chat_completion_json as groq_chat_json
+from api_groq       import chat_completion_stream as groq_chat_stream,       chat_completion_json as groq_chat_json
 from api_openai     import openai_models
-from api_openai     import chat_completion_stream as openai_chat_stream,    chat_completion_json as openai_chat_json
+from api_openai     import chat_completion_stream as openai_chat_stream,     chat_completion_json as openai_chat_json
+from api_openrouter import openrouter_models
+from api_openrouter import chat_completion_stream as openrouter_chat_stream, chat_completion_json as openrouter_chat_json
 from api_ollama     import ollama_models
-from api_ollama     import chat_completion_stream as ollama_chat_stream,    chat_completion_json as ollama_chat_json
+from api_ollama     import chat_completion_stream as ollama_chat_stream,     chat_completion_json as ollama_chat_json
 from api_lmstudio   import lmstudio_models
-from api_lmstudio   import chat_completion_stream as lmstudio_chat_stream,  chat_completion_json as lmstudio_chat_json
+from api_lmstudio   import chat_completion_stream as lmstudio_chat_stream,   chat_completion_json as lmstudio_chat_json
 
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 CHAT_FILE = f"chat_{timestamp}.txt"
 
 # a nested dict to hold both stream and non_stream api handlers:
 provider_to_api_handler = {
-    "keys2text":        {"stream": mock_chat_stream,      "non_stream": mock_chat_json},
-    "openai":           {"stream": openai_chat_stream,    "non_stream": openai_chat_json},
-    "anthropic":        {"stream": anthropic_chat_stream, "non_stream": anthropic_chat_json},
-    "google":           {"stream": gemini_chat_stream,    "non_stream": gemini_chat_json},
-    "groq":             {"stream": groq_chat_stream,      "non_stream": groq_chat_json},
-    "lmstudio":         {"stream": lmstudio_chat_stream,  "non_stream": lmstudio_chat_json},
-    "ollama":           {"stream": ollama_chat_stream,    "non_stream": ollama_chat_json},
+    "keys2text":        {"stream": mock_chat_stream,        "non_stream": mock_chat_json},
+    "openai":           {"stream": openai_chat_stream,      "non_stream": openai_chat_json},
+    "openrouter":       {"stream": openrouter_chat_stream,  "non_stream": openrouter_chat_json},
+    "anthropic":        {"stream": anthropic_chat_stream,   "non_stream": anthropic_chat_json},
+    "google":           {"stream": gemini_chat_stream,      "non_stream": gemini_chat_json},
+    "groq":             {"stream": groq_chat_stream,        "non_stream": groq_chat_json},
+    "lmstudio":         {"stream": lmstudio_chat_stream,    "non_stream": lmstudio_chat_json},
+    "ollama":           {"stream": ollama_chat_stream,      "non_stream": ollama_chat_json},
 }
 
 def datetime_to_timestamp(date):
@@ -94,6 +97,8 @@ async def lifespan(app: FastAPI):
             models = await ollama_models()
         if provider == "lmstudio":
             models = await lmstudio_models()
+        if provider == "openrouter":
+            models = await openrouter_models()
         if models:
             append_models_to_all(models, provider)
     print(f"*** List of models available:\n{all_models}\n")

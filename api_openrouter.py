@@ -13,10 +13,11 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from openai import OpenAI
 
 
-async def openai_models():
+async def openrouter_models():
 	try:
 		client = OpenAI(
-			api_key=os.environ['OPENAI_API_KEY'],
+			base_url="https://openrouter.ai/api/v1",
+			api_key=os.environ['OPENROUTER_API_KEY'],
 			timeout=5.0,
 			max_retries=0, 
 		)
@@ -196,16 +197,9 @@ async def chat_completion_json(request_data, chat_file):
 	model = params.get('model', None)
 	log_me_request(chat_file, model, request_data)
 	try:
-		# instead of making the actual API call, we'll raise the error manually
-		# if True:
-			# raise Exception(
-			#     message="Service overloaded",
-			#     response=response,
-			#     body={"error": {"message": "Service overloaded"}}
-			# )
-			# raise Exception(f"Error calling: {model}")
 		client = OpenAI(
-			api_key=os.environ['OPENAI_API_KEY'],
+			base_url="https://openrouter.ai/api/v1",
+			api_key=os.environ['OPENROUTER_API_KEY'],
 			timeout=30.0,
 			max_retries=0, 
 		)
@@ -222,7 +216,8 @@ async def chat_completion_stream(request_data, chat_file):
 	model = params.get('model', None)
 	log_me_request(chat_file, model, request_data)
 	client = OpenAI(
-		api_key=os.environ['OPENAI_API_KEY'],
+		base_url="https://openrouter.ai/api/v1",
+		api_key=os.environ['OPENROUTER_API_KEY'],
 		timeout=30.0,
 		max_retries=0, 
 	)
