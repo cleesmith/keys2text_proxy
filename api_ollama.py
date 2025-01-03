@@ -1,4 +1,4 @@
-# aidetour_ollama.py
+# api_ollama.py
 import os
 import sys
 import traceback
@@ -12,6 +12,16 @@ from fastapi.responses import StreamingResponse, JSONResponse
 
 from openai import OpenAI
 
+
+async def ollama_models():
+	try:
+		client = OpenAI(base_url='http://localhost:11434/v1/', api_key='ollama')
+		models = client.models.list()
+		model_ids = [model.id for model in models.data]
+		chat_models = sorted(model_ids)
+		return chat_models
+	except Exception as e:
+		return None
 
 def word_count(s):
 	return len(re.findall(r'\w+', s))

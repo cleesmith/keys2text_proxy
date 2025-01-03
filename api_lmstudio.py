@@ -1,4 +1,4 @@
-# aidetour_lmstudio.py
+# api_lmstudio.py
 import os
 import sys
 import traceback
@@ -11,6 +11,17 @@ from fastapi import Request
 from fastapi.responses import StreamingResponse, JSONResponse
 
 from openai import OpenAI
+
+
+async def lmstudio_models():
+	try:
+		client = OpenAI(base_url="http://localhost:5506/v1", api_key="lm-studio")
+		models = client.models.list()
+		model_ids = [model.id for model in models.data]
+		chat_models = sorted(model_ids)
+		return chat_models
+	except Exception as e:
+		return None
 
 
 def word_count(s):

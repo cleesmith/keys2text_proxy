@@ -1,4 +1,4 @@
-# api_gemini.py
+# api_google.py
 import os
 import sys
 import traceback

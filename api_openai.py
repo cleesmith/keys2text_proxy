@@ -1,4 +1,4 @@
-# aidetour_openai.py
+# api_openai.py
 import os
 import sys
 import traceback

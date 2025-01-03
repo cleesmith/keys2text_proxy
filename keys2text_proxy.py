@@ -1,4 +1,5 @@
-# python -B keys2text_proxy.py
+# HUGE NOTE: this app is meant to be used by one person along with novelcrafter!
+# uvicorn main:app --workers 1 --host localhost --port 8000
 import os
 import signal
 import sys
@@ -20,7 +21,9 @@ from api_groq       import groq_models
 from api_groq       import chat_completion_stream as groq_chat_stream,      chat_completion_json as groq_chat_json
 from api_openai     import openai_models
 from api_openai     import chat_completion_stream as openai_chat_stream,    chat_completion_json as openai_chat_json
+from api_ollama     import ollama_models
 from api_ollama     import chat_completion_stream as ollama_chat_stream,    chat_completion_json as ollama_chat_json
+from api_lmstudio   import lmstudio_models
 from api_lmstudio   import chat_completion_stream as lmstudio_chat_stream,  chat_completion_json as lmstudio_chat_json
 
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -72,6 +75,7 @@ async def lifespan(app: FastAPI):
     with open(CHAT_FILE, "a") as f:
         human_timestamp = datetime.datetime.now().strftime("%A, %b %d, %Y - %I:%M %p")
         f.write(f"Chat history for session starting at {human_timestamp}\n")
+        full_path = os.path.abspath(f.name)
 
     print(f"\n***********************************************************")
     print(f"Welcome to Keys2Text Proxy to AI providers and chat models!")
@@ -86,17 +90,26 @@ async def lifespan(app: FastAPI):
             models = await groq_models()
         if provider == "openai":
             models = await openai_models()
+        if provider == "ollama":
+            models = await ollama_models()
+        if provider == "lmstudio":
+            models = await lmstudio_models()
         if models:
             append_models_to_all(models, provider)
     print(f"*** List of models available:\n{all_models}\n")
-    print(f"Fire up novelcrafter and enjoy! ☮️")
+    print(f"Fire up novelcrafter and enjoy plain text files of your chats.")
+    print(f"For this chat session see:")
+    print(f"{full_path}")
     print(f"***********************************************************\n")
 
     # ready to handle proxy requests from novelcrafter:
     yield
 
-    # happens when this app shuts down, usually ctrl+c:
-    print("Note: if you see gRPC timeout message that can safely be ignored.")
+    # now, after the yield, is the app shutting down, usually ctrl+c:
+    print("* Note, if you see:")
+    print("\tWARNING: All log messages before absl::InitializeLog() is called are written to STDERR")
+    print("\tE0000 00:00:1735937246.100830 12394077 init.cc:229] grpc_wait_for_shutdown_with_timeout() timed out.")
+    print("\t... or similar, these can safely be ignored.")
     print("Keys2Text Proxy is shutting down . . . goodbye!")
 
 
