@@ -31,6 +31,20 @@ async def google_models():
 		return chat_models
 	except Exception as e:
 		return None
+	finally:
+		# https://stackoverflow.com/questions/78780089/how-do-i-get-rid-of-the-annoying-terminal-warning-when-using-gemini-api
+		# this may help with this app shutdown message:
+		#   E0000 00:00:1734357622.139313 1081881 init.cc:229] grpc_wait_for_shutdown_with_timeout() timed out.
+		# these have no effect: 
+		#   suppress logging warnings
+		#   os.environ["GRPC_VERBOSITY"] = "ERROR"
+		#   os.environ["GLOG_minloglevel"] = "2"
+		# nor as export's (printenv)
+		# ... google is such a wingnut:
+		try:
+			await asyncio.sleep(0.1) # small grace period for connection cleanup
+		except Exception:
+			pass
 
 def word_count(s):
 	return len(re.findall(r'\w+', s))
@@ -219,29 +233,65 @@ def generate_content_response_to_dict(response, model):
 
 
 async def chat_completion_json(request_data, chat_file):
-	model = request_data.get('model', default_model)
-	params = convert_request_for_gemini(request_data)
-	log_me_request(chat_file, model, request_data)
-	genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-	client = genai.GenerativeModel(model)
-	response = client.generate_content(**params)
-	response_dict = generate_content_response_to_dict(response, model)
-	log_ai_response(chat_file, model, response_dict)
-	return response_dict
+	try:
+		model = request_data.get('model', default_model)
+		params = convert_request_for_gemini(request_data)
+		log_me_request(chat_file, model, request_data)
+		genai.configure(api_key=os.environ['GEMINI_API_KEY'])
+		client = genai.GenerativeModel(model)
+		response = client.generate_content(**params)
+		response_dict = generate_content_response_to_dict(response, model)
+		log_ai_response(chat_file, model, response_dict)
+		return response_dict
+	except Exception as e:
+		return f"Error:\nGoogle's response for model: {model}\n{e}"
+	finally:
+		# https://stackoverflow.com/questions/78780089/how-do-i-get-rid-of-the-annoying-terminal-warning-when-using-gemini-api
+		# this may help with this app shutdown message:
+		#   E0000 00:00:1734357622.139313 1081881 init.cc:229] grpc_wait_for_shutdown_with_timeout() timed out.
+		# these have no effect: 
+		#   suppress logging warnings
+		#   os.environ["GRPC_VERBOSITY"] = "ERROR"
+		#   os.environ["GLOG_minloglevel"] = "2"
+		# nor as export's (printenv)
+		# ... google is such a wingnut:
+		try:
+			await asyncio.sleep(0.1) # small grace period for connection cleanup
+		except Exception:
+			pass
 
 
 async def chat_completion_stream(request_data, chat_file):
-	model = request_data.get('model', default_model)
-	params = convert_request_for_gemini(request_data)
-	log_me_request(chat_file, model, request_data)
-	genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-	client = genai.GenerativeModel(model)
-	response = client.generate_content(**params, stream=True)
-	c = 1
-	message_id = generate_unique_string()
-	result = ""
-	for chunk in response:
-		result += chunk.text or ""
+	try:
+		model = request_data.get('model', default_model)
+		params = convert_request_for_gemini(request_data)
+		log_me_request(chat_file, model, request_data)
+		genai.configure(api_key=os.environ['GEMINI_API_KEY'])
+		client = genai.GenerativeModel(model)
+		response = client.generate_content(**params, stream=True)
+		c = 1
+		message_id = generate_unique_string()
+		result = ""
+		for chunk in response:
+			result += chunk.text or ""
+			message_id = f"{c}.{generate_unique_string()}"
+			transformed_data = {
+				"id": message_id,
+				"object": "chat.completion.chunk",
+				"created": int(time.time()),
+				"model": model,
+				"choices": [{
+					"index": 0,
+					"delta": {
+						"role": "assistant",
+						"content": chunk.text,
+					},
+					"finish_reason": None
+				}]
+			}
+			yield f"data: {json.dumps(transformed_data)}\n\n"
+			c = c + 1
+
 		message_id = f"{c}.{generate_unique_string()}"
 		transformed_data = {
 			"id": message_id,
@@ -250,29 +300,27 @@ async def chat_completion_stream(request_data, chat_file):
 			"model": model,
 			"choices": [{
 				"index": 0,
-				"delta": {
-					"role": "assistant",
-					"content": chunk.text,
-				},
-				"finish_reason": None
+				"delta": {},
+				"finish_reason": "stop"
 			}]
 		}
 		yield f"data: {json.dumps(transformed_data)}\n\n"
-		c = c + 1
-
-	message_id = f"{c}.{generate_unique_string()}"
-	transformed_data = {
-		"id": message_id,
-		"object": "chat.completion.chunk",
-		"created": int(time.time()),
-		"model": model,
-		"choices": [{
-			"index": 0,
-			"delta": {},
-			"finish_reason": "stop"
-		}]
-	}
-	yield f"data: {json.dumps(transformed_data)}\n\n"
-	yield "data: [DONE]\n\n"
-	log_ai_response(chat_file, model, result)
+		yield "data: [DONE]\n\n"
+		log_ai_response(chat_file, model, result)
+	except Exception as e:
+		yield f"Error:\nGoogle's response for model: {model}\n{e}"
+	finally:
+		# https://stackoverflow.com/questions/78780089/how-do-i-get-rid-of-the-annoying-terminal-warning-when-using-gemini-api
+		# this may help with this app shutdown message:
+		#   E0000 00:00:1734357622.139313 1081881 init.cc:229] grpc_wait_for_shutdown_with_timeout() timed out.
+		# these have no effect: 
+		#   suppress logging warnings
+		#   os.environ["GRPC_VERBOSITY"] = "ERROR"
+		#   os.environ["GLOG_minloglevel"] = "2"
+		# nor as export's (printenv)
+		# ... google is such a wingnut:
+		try:
+			await asyncio.sleep(0.1) # small grace period for connection cleanup
+		except Exception:
+			pass
 

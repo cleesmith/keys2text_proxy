@@ -9,6 +9,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
 import uvicorn
+from contextlib import asynccontextmanager
 
 from api_mock       import chat_completion_stream as mock_chat_stream,      chat_completion_json as mock_chat_json
 from api_anthropic  import chat_completion_stream as anthropic_chat_stream, chat_completion_json as anthropic_chat_json
@@ -22,27 +23,16 @@ from api_lmstudio   import chat_completion_stream as lmstudio_chat_stream,  chat
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 CHAT_FILE = f"chat_{timestamp}.txt"
 
-def signal_handler(sig, frame):
-    # define a signal handler to handle SIGINT ctrl-c in terminal
-    print("Exiting...\n")
-    sys.exit(0)
-
-# register the signal handler for SIGINT
-signal.signal(signal.SIGINT, signal_handler)
-
-# app = FastAPI(debug=True) # no debug for prod
-app = FastAPI()
-
-# configure CORS
-app.add_middleware(
-    CORSMiddleware,
-    # allow_origins=["*"], # bad! so be more restrictive:
-    allow_origins=["http://0.0.0.0:8000", "https://app.novelcrafter.com"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+# a nested dict to hold both stream and non_stream api handlers:
+provider_to_api_handler = {
+    "keys2text":        {"stream": mock_chat_stream,      "non_stream": mock_chat_json},
+    "openai":           {"stream": openai_chat_stream,    "non_stream": openai_chat_json},
+    "anthropic":        {"stream": anthropic_chat_stream, "non_stream": anthropic_chat_json},
+    "google":           {"stream": gemini_chat_stream,    "non_stream": gemini_chat_json},
+    "groq":             {"stream": groq_chat_stream,      "non_stream": groq_chat_json},
+    "lmstudio":         {"stream": lmstudio_chat_stream,  "non_stream": lmstudio_chat_json},
+    "ollama":           {"stream": ollama_chat_stream,    "non_stream": ollama_chat_json},
+}
 
 def datetime_to_timestamp(date):
     # convert a datetime object to a Unix timestamp
@@ -56,49 +46,55 @@ all_models = {
             "object": "model",
             "created": datetime_to_timestamp(datetime.datetime(2025, 1, 1)),
             "owned_by": "keys2text"
-        },
-        {
-            "id": "claude-3-5-sonnet-20240620",
-            "object": "model",
-            "created": datetime_to_timestamp(datetime.datetime(2024, 6, 20)),
-            "owned_by": "anthropic"
-        },
-        {
-            "id": "gpt-3.5-turbo",
-            "object": "model",
-            "created": datetime_to_timestamp(datetime.datetime(2022, 1, 1)),
-            "owned_by": "openai"
-        },
-        {
-            "id": "gemini-1.5-pro",
-            "object": "model",
-            "created": datetime_to_timestamp(datetime.datetime(2023, 12, 31)),
-            "owned_by": "google"
-        },
-        {
-            "id": "llama3-70b-8192",
-            "object": "model",
-            "created": datetime_to_timestamp(datetime.datetime(2023, 12, 31)),
-            "owned_by": "groq"
-        },
-        {
-            "id": "lmstudio",
-            "object": "model",
-            "created": datetime_to_timestamp(datetime.datetime(2023, 12, 31)),
-            "owned_by": "lmstudio"
-        },
-        {
-            "id": "tinyllama",
-            "object": "model",
-            "created": datetime_to_timestamp(datetime.datetime(2023, 12, 31)),
-            "owned_by": "ollama"
         }
     ]
 }
 
+def append_models_to_all(models, provider):
+    global all_models
+    for model_name in models:
+        all_models["data"].append({
+            "id": model_name,
+            "object": "model",
+            "created": datetime_to_timestamp(datetime.datetime.now()),
+            "owned_by": provider
+        })
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global all_models
+    print(f"\n***********************************************************")
+    print(f"Welcome to Keys2Text Proxy to AI providers and chat models!")
+    print(f". . . standby gathering all models using your provider API keys:")
+    for provider, handlers in provider_to_api_handler.items():
+        models = await google_models() if provider == "google" else []
+        append_models_to_all(models, provider)
+    print(f"List of models available:\n{all_models}\n")
+    print(f"Fire up novelcrafter and enjoy! ☮️")
+    print(f"***********************************************************\n")
+    # ready to handle proxy requests from novelcrafter:
+    yield
+    print("Note: The gRPC timeout message that may appear can be safely ignored.")
+    print("Keys2Text Proxy is shutting down . . . goodbye!")
+
+
+app = FastAPI(lifespan=lifespan)
+app.add_middleware(
+    CORSMiddleware,
+    # allow_origins=["*"], # bad! so be more restrictive:
+    allow_origins=["http://0.0.0.0:8000", "https://app.novelcrafter.com"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/v1/models")
 async def list_models():
+    # global all_models
+    # for provider, handlers in provider_to_api_handler.items():
+    #     models = await google_models() if provider == "google" else []
+    #     append_models_to_all(models, provider)
+    # print(f"\nall_models:\n{all_models}\n")
     return JSONResponse(content=all_models)
 
 @app.post("/v1/chat/completions")
@@ -111,17 +107,6 @@ async def chat_completion(request: Request):
     provider = next((model["owned_by"] for model in all_models["data"] if model["id"] == model_requested), None)
 
     stream_requested = request_dict.get('stream', False)
-
-    # a nested dict to hold both stream and non_stream api handlers:
-    provider_to_api_handler = {
-        "keys2text":        {"stream": mock_chat_stream,      "non_stream": mock_chat_json},
-        "openai":           {"stream": openai_chat_stream,    "non_stream": openai_chat_json},
-        "anthropic":        {"stream": anthropic_chat_stream, "non_stream": anthropic_chat_json},
-        "google":           {"stream": gemini_chat_stream,    "non_stream": gemini_chat_json},
-        "groq":             {"stream": groq_chat_stream,      "non_stream": groq_chat_json},
-        "lmstudio":         {"stream": lmstudio_chat_stream,  "non_stream": lmstudio_chat_json},
-        "ollama":           {"stream": ollama_chat_stream,    "non_stream": ollama_chat_json},
-    }
 
     response_type = "stream" if stream_requested else "non_stream"
     default_handler = {"stream": mock_chat_stream, "non_stream": mock_chat_json}
@@ -138,6 +123,5 @@ if __name__ == "__main__":
     with open(CHAT_FILE, "a") as f:
         human_timestamp = datetime.datetime.now().strftime("%A, %b %d, %Y - %I:%M %p")
         f.write(f"Chat history for session starting at {human_timestamp}\n")
-
-    uvicorn.run(app, host="0.0.0.0", port=8000, workers=1)
-
+    print("start it this way:")
+    print("uvicorn main:app --workers 1 --host localhost --port 8000")
