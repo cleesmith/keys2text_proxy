@@ -22,10 +22,13 @@ async def google_models():
 		genai.configure(api_key=os.environ['GEMINI_API_KEY'])
 		models = []
 		list_of_models = genai.list_models(request_options={"timeout": 5.0})
-		print(f"\ngoogle_models:\n{list_of_models}\n")
 		for model in list_of_models:
 			models.append(model.name)
-		return sorted(models)
+		chat_models = sorted(
+		    model.replace('models/', '') for model in models 
+		    if 'gemini' in model and 'vision' not in model
+		)
+		return chat_models
 	except Exception as e:
 		return None
 
@@ -40,7 +43,7 @@ def generate_unique_string():
 	return unique_string
 
 def convert_request_for_gemini(request_data):
-	print(f"\n convert_request_for_gemini:\n request_data: type={type(request_data)}:\n{request_data}\n")
+	# print(f"\n convert_request_for_gemini:\n request_data: type={type(request_data)}:\n{request_data}\n")
 	# modify the system messages and wrap them in asterisks
 	request_data['messages'] = [
 		{'role': 'user', 'content': f"*{msg['content']}*"}
@@ -71,7 +74,7 @@ def convert_request_for_gemini(request_data):
 	}
 	# remove any parameters that are None
 	request_dict = {key: value for key, value in request_dict.items() if value is not None}
-	print(f"\n convert_request_for_gemini:\nrequest_dict: type={type(request_dict)}:\n{request_dict}\n")
+	# print(f"\n convert_request_for_gemini:\nrequest_dict: type={type(request_dict)}:\n{request_dict}\n")
 	return request_dict
 
 
