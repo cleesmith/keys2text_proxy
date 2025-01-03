@@ -25,8 +25,8 @@ async def google_models():
 		for model in list_of_models:
 			models.append(model.name)
 		chat_models = sorted(
-		    model.replace('models/', '') for model in models 
-		    if 'gemini' in model and 'vision' not in model
+			model.replace('models/', '') for model in models 
+			if 'gemini' in model and 'vision' not in model
 		)
 		return chat_models
 	except Exception as e:
@@ -253,7 +253,7 @@ async def chat_completion_json(request_data, chat_file):
 		#   suppress logging warnings
 		#   os.environ["GRPC_VERBOSITY"] = "ERROR"
 		#   os.environ["GLOG_minloglevel"] = "2"
-		# nor as export's (printenv)
+		# nor does export-ed settings (like in: printenv, .env, ~/.zshrc)
 		# ... google is such a wingnut:
 		try:
 			await asyncio.sleep(0.1) # small grace period for connection cleanup
@@ -317,7 +317,7 @@ async def chat_completion_stream(request_data, chat_file):
 		#   suppress logging warnings
 		#   os.environ["GRPC_VERBOSITY"] = "ERROR"
 		#   os.environ["GLOG_minloglevel"] = "2"
-		# nor as export's (printenv)
+		# nor does export-ed settings (like in: printenv, .env, ~/.zshrc)
 		# ... google is such a wingnut:
 		try:
 			await asyncio.sleep(0.1) # small grace period for connection cleanup

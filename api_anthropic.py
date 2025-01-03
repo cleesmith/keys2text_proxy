@@ -13,6 +13,19 @@ from fastapi.responses import StreamingResponse, JSONResponse
 import anthropic
 from anthropic import Anthropic
 
+
+async def anthropic_models():
+	try:
+		client = anthropic.Anthropic(
+			api_key=os.environ['OPENAI_API_KEY'],
+			max_retries=0,
+		)
+		models = client.models.list(limit=1000) # default=20
+		model_ids = [model.id for model in models.data]
+		sorted_models = sorted(model_ids)
+	except Exception as e:
+		return None
+
 def word_count(s):
 	return len(re.findall(r'\w+', s))
 

@@ -11,7 +11,7 @@ async def chat_completion_json(request: Request, chat_file):
         "id": "mock1",
         "object": "chat.completion",
         "created": 1718313000,
-        "model": "aidetour-mock",
+        "model": "keys2text-mock",
         "choices": [
             {
                 "index": 0,

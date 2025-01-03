@@ -13,6 +13,20 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from openai import OpenAI
 
 
+async def openai_models():
+	try:
+		client = OpenAI(
+			api_key=os.environ['OPENAI_API_KEY'],
+			timeout=5.0,
+			max_retries=0, 
+		)
+		models = client.models.list()
+		model_ids = [model.id for model in models.data]
+		chat_models = sorted(model_ids)
+		return chat_models
+	except Exception as e:
+		return None
+
 def word_count(s):
 	return len(re.findall(r'\w+', s))
 
@@ -184,18 +198,19 @@ async def chat_completion_json(request_data, chat_file):
 	try:
 		# instead of making the actual API call, we'll raise the error manually
 		# if True:
-		  # raise Exception(
-		  #     message="Service overloaded",
-		  #     response=response,
-		  #     body={"error": {"message": "Service overloaded"}}
-		  # )
-		  # raise Exception(f"Error calling: {model}")
-		# fixme getting api key from environment var via os.environ.get("OPENAI_API_KEY")
-		client = OpenAI()
+			# raise Exception(
+			#     message="Service overloaded",
+			#     response=response,
+			#     body={"error": {"message": "Service overloaded"}}
+			# )
+			# raise Exception(f"Error calling: {model}")
+		client = OpenAI(
+			api_key=os.environ['OPENAI_API_KEY'],
+			timeout=5.0,
+			max_retries=0, 
+		)
 		response = client.chat.completions.create(**params)
-		# print(response.choices[0].message)
 		response_dict = response.to_dict()
-		# print(f"\n******\n openai api: response_dict: type={type(response_dict)}:\n{response_dict}\n*****\n")
 		log_ai_response(chat_file, model, response_dict)
 		return response_dict
 	except Exception as e:
@@ -206,8 +221,11 @@ async def chat_completion_stream(request_data, chat_file):
 	params = extract_request_data(request_data)
 	model = params.get('model', None)
 	log_me_request(chat_file, model, request_data)
-	# fixme getting api key from environment var via os.environ.get("OPENAI_API_KEY")
-	client = OpenAI()
+	client = OpenAI(
+		api_key=os.environ['OPENAI_API_KEY'],
+		timeout=5.0,
+		max_retries=0, 
+	)
 	response = client.chat.completions.create(**params)
 	result = ""
 	for chunk in response:
@@ -217,32 +235,3 @@ async def chat_completion_stream(request_data, chat_file):
 	yield b"data: [DONE]\n\n"
 	log_ai_response(chat_file, model, result)
 
-
-'''
-list models:
-curl https://api.openai.com/v1/models -H "Authorization: Bearer $OPENAI_API_KEY"
-or:
-import os
-from openai import OpenAI
-client = OpenAI() # does: os.environ["OPENAI_API_KEY"]
-models = client.models.list()
-print(models)
-
-
-curl -i -X POST -H "Content-Type: application/json" -d '{                     
-  "model": "gpt-3.5-turbo",
-  "messages": [        
-	{                                          
-	  "role": "system",
-	  "content": "You are a helpful assistant."
-	},               
-	{                                 
-	  "role": "user",
-	  "content": "Hello, how are you?"
-	}           
-  ],
-  "stream": false
-}' http://localhost:8000/v1/chat/completions
-
-curl https://api.openai.com/v1/chat/completions -H "Content-Type: application/json" -H "Authorization: Bearer $OPENAI_API_KEY"  -d '{"model": "gpt-3.5-turbo", "messages": [ {"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": "hello!"} ] }'
-'''

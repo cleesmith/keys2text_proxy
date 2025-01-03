@@ -11,7 +11,24 @@ from fastapi import Request
 from fastapi.responses import StreamingResponse, JSONResponse
 
 from groq import Groq
+from groq import AsyncGroq
 
+
+async def groq_models():
+    try:
+        client = Groq(
+            api_key=os.environ['GROQ_API_KEY'],
+            timeout=5.0,
+            max_retries=0, 
+        )
+        models = client.models.list()
+        model_ids = [model.id for model in models.data if 'whisper' not in model.id.lower()]
+        chat_models = sorted(
+            model for model in model_ids if 'whisper' not in model
+        )
+        return chat_models
+    except Exception as e:
+        return None
 
 def word_count(s):
     return len(re.findall(r'\w+', s))
@@ -76,14 +93,10 @@ def format_text(input_text: str, max_width: int = 80) -> str:
         # if there are already line breaks, use them to split paragraphs
         paragraphs = content.split('\n\n')
     
-    # Format each paragraph
     formatted_text = []
     for para in paragraphs:
-        # Remove extra whitespace
         para = ' '.join(para.split())
-        # Wrap the paragraph
         wrapped_lines = textwrap.wrap(para, width=max_width-1)  # -1 to leave room for trailing space
-        # Add a trailing space to each line
         wrapped_para = '\n'.join(line + ' ' for line in wrapped_lines)
         formatted_text.append(wrapped_para)
     
@@ -195,7 +208,6 @@ def response_to_dict(response):
             for choice in response.choices
         ]
     }
-    # print(f"\n******\nresponse_dict: type={type(response_dict)}:\n{response_dict}\n*****\n")
     return response_dict
 
 
@@ -203,10 +215,12 @@ async def chat_completion_json(request_data, chat_file):
     params = extract_request_data(request_data)
     model = params.get('model', None)
     log_me_request(chat_file, model, request_data)
-    # fixme getting api key from environment var via os.environ.get("")
-    client = Groq()
-    response = client.chat.completions.create(**params)
-    # print(f"\n*****\nresponse: type={type(response)}:\n{response}\n*****\n")
+    client = AsyncGroq(
+        api_key=os.environ['GROQ_API_KEY'], 
+        timeout=30,
+        max_retries=0, 
+    )
+    response = await client.chat.completions.create(**params)
     log_ai_response(chat_file, model, response)
     return response_to_dict(response)
 
@@ -215,11 +229,14 @@ async def chat_completion_stream(request_data, chat_file):
     params = extract_request_data(request_data)
     model = params.get('model', None)
     log_me_request(chat_file, model, request_data)
-    # fixme getting api key from environment var via os.environ.get("")
-    client = Groq(max_retries=0, timeout=60)
-    response = client.chat.completions.create(**params)
+    client = AsyncGroq(
+        api_key=os.environ['GROQ_API_KEY'], 
+        timeout=30,
+        max_retries=0, 
+    )
+    response = await client.chat.completions.create(**params)
     result = ""
-    for chunk in response:
+    async for chunk in response:
         result += getattr(chunk.choices[0].delta, 'content') or ''
         # extract the content from the Choice object
         transformed_chunk = {
@@ -244,63 +261,3 @@ async def chat_completion_stream(request_data, chat_file):
     yield b"data: [DONE]\n\n"
     log_ai_response(chat_file, model, result)
 
-
-'''
-https://console.groq.com/docs/openai
-OpenAI Compatibility
-Groq's APIs are designed to be compatible with OpenAI's, with the goal of 
-making it easy to leverage Groq in applications you may have already built. 
-However, there are some nuanced differences where support is not yet available.
-
-Text Completion
-The following fields are not supported and will result in a 400 error if they are supplied:
-
-logprobs
-logit_bias
-top_logprobs
-
-
-If N is supplied, it must be equal to 1.
-
-messages[].name The name field is not supported by any of our models.
-
-Temperature
-If you set a temperature value of 0, it will be converted to 1e-8. 
-If you run into any issues, please try setting the value to a float32 > 0 and <= 2.
-
-URL
-The base_url is https://api.groq.com/openai/v1
-'''
-
-'''
-test directly to Groq:
-curl -X POST "https://api.groq.com/openai/v1/chat/completions" \
-     -H "Authorization: Bearer $GROQ_API_KEY" \
-     -H "Content-Type: application/json" \
-     -d '{"messages": [{"role": "user", "content": "hi!"}], "model": "llama3-8b-8192", "stream": true}'
-
-
-get a list of models from Groq:
-curl -X GET "https://api.groq.com/openai/v1/models" \
-     -H "Authorization: Bearer $GROQ_API_KEY" \
-     -H "Content-Type: application/json"
-
-{"object":"list","data":[{"id":"gemma-7b-it","object":"model","created":1693721698,"owned_by":"Google","active":true,"context_window":8192},{"id":"llama3-70b-8192","object":"model","created":1693721698,"owned_by":"Meta","active":true,"context_window":8192},{"id":"llama3-8b-8192","object":"model","created":1693721698,"owned_by":"Meta","active":true,"context_window":8192},{"id":"mixtral-8x7b-32768","object":"model","created":1693721698,"owned_by":"Mistral AI","active":true,"context_window":32768}]}
-
-
-test this code:
-curl -i -X POST -H "Content-Type: application/json" -d '{                     
-  "model": "llama3-70b-8192",
-  "messages": [        
-    {                                          
-      "role": "system",
-      "content": "You are a helpful assistant."
-    },               
-    {                                 
-      "role": "user",
-      "content": "Hello, how are you?"
-    }           
-  ],
-  "stream": true
-}' http://localhost:8000/v1/chat/completions
-'''
