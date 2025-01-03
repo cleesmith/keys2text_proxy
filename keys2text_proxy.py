@@ -80,7 +80,6 @@ async def lifespan(app: FastAPI):
         models = None
         if provider == "anthropic":
             models = await anthropic_models()
-            print(f"models={models}")
         if provider == "google":
             models = await google_models()
         if provider == "groq":

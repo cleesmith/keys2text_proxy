@@ -17,12 +17,13 @@ from anthropic import Anthropic
 async def anthropic_models():
 	try:
 		client = anthropic.Anthropic(
-			api_key=os.environ['OPENAI_API_KEY'],
+			api_key=os.environ['ANTHROPIC_API_KEY'],
 			max_retries=0,
 		)
 		models = client.models.list(limit=1000) # default=20
 		model_ids = [model.id for model in models.data]
 		sorted_models = sorted(model_ids)
+		return sorted_models
 	except Exception as e:
 		return None
 
@@ -193,7 +194,11 @@ def log_ai_response_error(chat_file_name, model, e):
 
 async def chat_completion_json(request_data, chat_file):
 	# https://github.com/anthropics/anthropic-sdk-python/blob/2dfb899e34a785343ef07ad4cd0ddde8d37a7f74/README.md?plain=1#L279
-	client = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"), max_retries=0, timeout=120.0)
+	client = Anthropic(
+		api_key=os.environ.get("ANTHROPIC_API_KEY"), 
+		max_retries=0,
+		timeout=60.0
+	)
 	params = extract_chat_params(request_data)
 	model = params.get('model', None)
 	log_me_request(chat_file, model, request_data)
@@ -230,8 +235,11 @@ async def chat_completion_json(request_data, chat_file):
 
 async def chat_completion_stream(request_data, chat_file):
 	# https://github.com/anthropics/anthropic-sdk-python/blob/2dfb899e34a785343ef07ad4cd0ddde8d37a7f74/README.md?plain=1#L279
-	client = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"), max_retries=0, timeout=120.0)
-	# print(f"\n*** request_data:\n{request_data}\n")
+	client = Anthropic(
+		api_key=os.environ.get("ANTHROPIC_API_KEY"), 
+		max_retries=0,
+		timeout=60.0
+	)
 	params = extract_chat_params(request_data)
 	model = params.get('model', None)
 	log_me_request(chat_file, model, request_data)
@@ -289,32 +297,3 @@ async def chat_completion_stream(request_data, chat_file):
 		cleaned_text = error
 	log_ai_response(chat_file, model, cleaned_text)
 
-'''
-test directly to Anthropic:
-curl https://api.anthropic.com/v1/messages \
-	 --header "x-api-key: $ANTHROPIC_API_KEY" \
-	 --header "anthropic-version: 2023-06-01" \
-	 --header "content-type: application/json" \
-	 --data '{
-		 "model": "claude-3-haiku-20240307",
-		 "max_tokens": 1024,
-		 "messages": [
-			 {"role": "user", "content": "Hi!"}
-		 ]
-	 }'
-'''
-
-'''
-test this module (proxy api server):
-curl -i -X POST -H "Content-Type: application/json" -d '{                     
-	"model": "claude-3-haiku-20240307",
-	"max_tokens": 4000,
-	"messages": [        
-	{                                 
-		"role": "user",
-		"content": "Hi!"
-	}           
-	],
-	"stream": true
-}' http://localhost:8000/v1/chat/completions
-'''
