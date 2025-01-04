@@ -31,7 +31,7 @@ from api_lmstudio   import chat_completion_stream as lmstudio_chat_stream,   cha
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 CHAT_FILE = f"chat_{timestamp}.txt"
 
-# a nested dict to hold both stream and non_stream api handlers:
+# nested dict to hold both stream and non_stream api handlers:
 provider_to_api_handler = {
     "keys2text":        {"stream": mock_chat_stream,        "non_stream": mock_chat_json},
     "openai":           {"stream": openai_chat_stream,      "non_stream": openai_chat_json},

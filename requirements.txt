@@ -1,0 +1,9 @@
+# pip install pipreqs
+# pipreqs .
+# requirements.txt
+anthropic==0.42.0
+fastapi==0.115.6
+google-generativeai==0.8.3
+groq==0.13.1
+openai==1.59.3
+uvicorn==0.34.0

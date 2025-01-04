@@ -1,4 +1,4 @@
-# api_openrouter.py
+# api_google.py
 import os
 import sys
 import traceback
@@ -13,19 +13,36 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from openai import OpenAI
 
 
-async def openrouter_models():
+# response = client.chat.completions.create(
+#     model="gemini-1.5-flash",
+#     n=1,
+#     messages=[
+#         {"role": "system", "content": "You are a helpful assistant."},
+#         {
+#             "role": "user",
+#             "content": "Explain to me how AI works"
+#         }
+#     ]
+# )
+# print(response.choices[0].message)
+
+async def google_models():
 	try:
 		client = OpenAI(
-			base_url="https://openrouter.ai/api/v1",
-			api_key=os.environ['OPENROUTER_API_KEY'],
-			timeout=5.0,
+			api_key=os.environ['GEMINI_API_KEY'],
+			base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+			timeout=10.0,
 			max_retries=0, 
 		)
 		models = client.models.list()
+		# ... causes this error:
+		# openai.AuthenticationError: Error code: 401 - {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED'}}
+		print(f"\ngoogle_models():\n{models}\n")
 		model_ids = [model.id for model in models.data]
 		chat_models = sorted(model_ids)
 		return chat_models
 	except Exception as e:
+		print(f"\ngoogle_models():\n{e}\n")
 		return None
 
 def word_count(s):

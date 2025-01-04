@@ -1,4 +1,4 @@
-# api_google.py
+# api_google.py = api_google_generativeai.py
 import os
 import sys
 import traceback
@@ -21,7 +21,7 @@ async def google_models():
 	try:
 		genai.configure(api_key=os.environ['GEMINI_API_KEY'])
 		models = []
-		list_of_models = genai.list_models(request_options={"timeout": 5.0})
+		list_of_models = genai.list_models(request_options={"timeout": 10.0})
 		for model in list_of_models:
 			models.append(model.name)
 		chat_models = sorted(

@@ -1,8 +1,6 @@
 images/
 *.json
 printenv*
-Aidetour_Settings.json
-aidetour_chat_*
 chat_*
 Terminal*
 .DS_Store
