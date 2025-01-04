@@ -112,7 +112,7 @@ async def lifespan(app: FastAPI):
     print(f"{full_path}")
     print(f"***********************************************************\n")
 
-    # ready to handle proxy requests from novelcrafter:
+    # ready to handle proxy requests from novelcrafter or whatever:
     yield
 
     # now, after the yield, is the app shutting down, usually ctrl+c:
@@ -126,16 +126,18 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan) # deprecated: @app.on_event("startup")
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=["*"], # bad! so be more restrictive:
+    # allow_origins=["*"], # dumb! so let's be more restrictive:
     allow_origins=["http://0.0.0.0:8000", "https://app.novelcrafter.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+
 @app.get("/v1/models")
 async def list_models():
     return JSONResponse(content=all_models)
+
 
 @app.post("/v1/chat/completions")
 async def chat_completion(request: Request):
@@ -143,7 +145,7 @@ async def chat_completion(request: Request):
     request_dict = await request.json()
 
     model_requested = request_dict.get("model", "keys2text-mock")
-    # find the 'owned_by' value (provider) for the given model name:
+    # find the 'owned_by' value (i.e. provider) for the given model name:
     provider = next((model["owned_by"] for model in all_models["data"] if model["id"] == model_requested), None)
 
     stream_requested = request_dict.get('stream', False)
@@ -160,6 +162,6 @@ async def chat_completion(request: Request):
 
 
 if __name__ == "__main__":
-    print("start it this way:")
+    print("This app should be started in this way:")
     print("uvicorn main:app --workers 1 --host localhost --port 8000")
 
