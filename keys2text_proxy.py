@@ -27,6 +27,8 @@ from api_ollama     import ollama_models
 from api_ollama     import chat_completion_stream as ollama_chat_stream,     chat_completion_json as ollama_chat_json
 from api_lmstudio   import lmstudio_models
 from api_lmstudio   import chat_completion_stream as lmstudio_chat_stream,   chat_completion_json as lmstudio_chat_json
+from api_deepseek   import deepseek_models
+from api_deepseek   import chat_completion_stream as deepseek_chat_stream,   chat_completion_json as deepseek_chat_json
 
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 CHAT_FILE = f"chat_{timestamp}.txt"
@@ -41,6 +43,7 @@ provider_to_api_handler = {
     "groq":             {"stream": groq_chat_stream,        "non_stream": groq_chat_json},
     "lmstudio":         {"stream": lmstudio_chat_stream,    "non_stream": lmstudio_chat_json},
     "ollama":           {"stream": ollama_chat_stream,      "non_stream": ollama_chat_json},
+    "deepseek":         {"stream": deepseek_chat_stream,    "non_stream": deepseek_chat_json},
 }
 
 def datetime_to_timestamp(date):
@@ -99,6 +102,8 @@ async def lifespan(app: FastAPI):
             models = await lmstudio_models()
         if provider == "openrouter":
             models = await openrouter_models()
+        if provider == "deepseek":
+            models = await deepseek_models()
         if models:
             append_models_to_all(models, provider)
     print(f"*** List of models available:\n{all_models}\n")
@@ -157,3 +162,4 @@ async def chat_completion(request: Request):
 if __name__ == "__main__":
     print("start it this way:")
     print("uvicorn main:app --workers 1 --host localhost --port 8000")
+
