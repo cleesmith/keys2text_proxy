@@ -16,12 +16,12 @@ from groq import AsyncGroq
 
 async def groq_models():
     try:
-        client = Groq(
+        client = AsyncGroq(
             api_key=os.environ['GROQ_API_KEY'],
             timeout=5.0,
             max_retries=0, 
         )
-        models = client.models.list()
+        models = await client.models.list()
         model_ids = [model.id for model in models.data if 'whisper' not in model.id.lower()]
         chat_models = sorted(
             model for model in model_ids if 'whisper' not in model

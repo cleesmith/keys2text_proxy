@@ -1,5 +1,5 @@
 # HUGE NOTE: this app is meant to be used by one person along with novelcrafter!
-# uvicorn main:app --workers 1 --host localhost --port 8000
+# uvicorn keys2text_proxy:app --workers 1 --host localhost --port 8000
 import os
 import signal
 import sys

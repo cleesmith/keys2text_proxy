@@ -99,8 +99,8 @@ class StoryOutliner:
                         "content": self._create_brainstorming_prompt(user_seeds)
                     }
                 ],
-                temperature=0.7,
-                max_tokens=2000,
+                temperature=0.5,
+                # max_tokens=2000,
                 stream=False
             )
 
