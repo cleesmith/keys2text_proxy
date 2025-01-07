@@ -9,11 +9,13 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 ## Key Features
 
 - **Full OpenAI API Compatibility**  
-  Mimics OpenAI's endpoints and request/response formats.
+  Mimics OpenAI's endpoints and request/response formats, but only the text-based chat completion endpoints.
+  But each AI provider now returns a list of available models by using `client.models.list()` so it stays up-to-date.
 
 - **Multi-Provider Support**  
    Supply your own API keys to these services, and the proxy will handle 
    the request translation behind the scenes.
+   The API keys are found if exported in the environment.
 
   With Keys2Text Proxy, you can easily connect to:
   - **OpenAI**  
