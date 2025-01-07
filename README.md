@@ -136,7 +136,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 ## Roadmap
 
 - **Additional Providers**  
-  While we already support several popular AI services, the proxy is designed to be extended easily.<br> 
+  While we (*who we? 🤔*) already support several popular AI services, the proxy is designed to be extended easily.<br> 
   We plan to continually add new integrations. Maybe?
 
 - **Advanced Features**  
