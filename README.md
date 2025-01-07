@@ -102,8 +102,9 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 - **novelcrafter**
 
-  This app was written for and tested using [novelcrafter](https://www.novelcrafter.com), and 
-  for my personal usage I use `LM Studio` in `AI Connections` and change the port. Works great!
+  This app was written for and tested using [novelcrafter](https://www.novelcrafter.com)<br>
+  For my personal usage I use `LM Studio` in `AI Connections` and change the port.<br>
+  Works great!
 
 - **Chat Logging**  
 
