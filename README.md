@@ -106,7 +106,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 - **novelcrafter**
 
   This app was written for and tested using [novelcrafter](https://www.novelcrafter.com)<br>
-  This app handles CORS so your web browser can perform `fetch`es to the proxy.
+  This app handles CORS so your web browser can perform `fetch`es to the proxy.<br>
   Personally, I use `LM Studio` in `AI Connections` and change the port.<br>
   When using API keys for all of the AI providers, the list of models is over 300, wow.<br>
   Works great!
