@@ -140,7 +140,9 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
   We plan to continually add new integrations. Maybe?
 
 - **Advanced Features**  
-  Next Up: NER (name entity recognition) for existing writing and reverse-NER for story outlining.
+  Next in the hopper 🎡:<br>
+  🤖 NER (name entity recognition) for existing writing<br>
+  ⏪ reverse-NER for story outlining
 
 ## Contributing
 
