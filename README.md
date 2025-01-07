@@ -108,8 +108,9 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 - **This app is a personal proxy server**
 
   Keys2Text Proxy is intended to be run locally, i.e. on your computer, and not in the <br>
-  cloud/internet which may violate the AI providers API `Terms of Service/Use`.<br>
-  And there are advantages to running it locally.
+  cloud/internet which may violate the AI providers API `Terms of Service/Use` (*maybe*).<br>
+  While there are advantages to running it locally; this app will probably only <br>
+  run on desktops and laptops.
 
 - **novelcrafter**
 
@@ -119,9 +120,12 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 > Personally, for `novelcrafter` settings I use `LM Studio` in `AI Connections` and change the port.<br>
   When using API keys for all of the AI providers, the list of models is over 300, which is wow and unweildy.<br>
 
-> Works great: I'm my own middle-man, it's not slow in responding, any issues are between me and the AI provider<br>
-  (like 429's and such), my API keys are directly used with AI providers (more secure), and no extra usage fees.<br>
-  No offense to those cloud providers offering a similar service.
+> Works great:<br>
+  - and I'm my own middle-man,<br> 
+  - it's not any slower or quirkier in responding, <br>
+  - any issues are now between me and the AI provider (like 429's and such) and handled via their support (*if ever*), <br>
+  - my API keys are directly used with AI providers (more secure), and no extra usage fees.<br>
+  * No offense to the ever growing number of cloud providers offering a similar service.
 
 - **Chat Logging**  
 
