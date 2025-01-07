@@ -9,7 +9,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 ## Key Features
 
 - **Full OpenAI API Compatibility**  
-  Mimics OpenAI's endpoints and request/response formats, but only the text-based chat completion endpoints.
+  Mimics OpenAI's endpoints and request/response formats, but only the text-based chat completion endpoints.<br>
   But each AI provider now returns a list of available models by using `client.models.list()` so it stays up-to-date.
 
 - **Multi-Provider Support**  
@@ -29,19 +29,19 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 
 - **Timestamped Chat History as plain text file**  
-  The app keeps a plain-text log of all requests and responses for reference and as an aid in writing.
-  Conversations are saved with timestamps and paired using `Me:` and `AI:` labels.
-  A new text file is created whenever the app is started up, which allows for organizing 
+  The app keeps a plain-text log of all requests and responses for reference and as an aid in writing.<br>
+  Conversations are saved with timestamps and paired using `Me:` and `AI:` labels.<br>
+  A new text file is created whenever the app is started up, which allows for organizing <br>
   your AI chats simply by starting, stopping, and restarting this app.
 
 ## How It Works
 
 1. **Local HTTP Server**  
-   Keys2Text Proxy starts an HTTP server (default: `http://localhost:8000`) with routes matching 
-   the OpenAI API—for example, `/v1/chat/completions`.
+   Keys2Text Proxy starts an HTTP server (default: `http://localhost:8000`) with <br>
+   routes matching the OpenAI API—for example, `/v1/chat/completions`.
 
 2. **Request Translation**  
-   When a request arrives (in OpenAI-compatible format), the proxy translates it to 
+   When a request arrives (in OpenAI-compatible format), the proxy translates it to <br>
    the corresponding provider’s format using the model named in the request.
 
 3. **Response Translation**  
@@ -94,7 +94,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
    ```bash
    uvicorn keys2text_proxy:app --workers 1 --host localhost --port 8000
    ```
-   By default, the server runs on `http://localhost:8000`. 
+   By default, the server runs on `http://localhost:8000`. <br>
    You can now direct any OpenAI-compatible client to this URL.
 
 
@@ -103,18 +103,19 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 - **novelcrafter**
 
   This app was written for and tested using [novelcrafter](https://www.novelcrafter.com)<br>
-  For my personal usage I use `LM Studio` in `AI Connections` and change the port.<br>
+  Personally, I use `LM Studio` in `AI Connections` and change the port.<br>
+  When using API keys for all of the AI providers, the list of models is over 300, wow.<br>
   Works great!
 
 - **Chat Logging**  
 
-  Every conversation is automatically logged in a timestamped text file, e.g., `chat_YYYY-MM-DD_HH-MM-SS.txt`. 
+  Every conversation is automatically logged in a timestamped text file, e.g., `chat_YYYY-MM-DD_HH-MM-SS.txt`.<br>
   This log is just a plain text file tracking your prompts under `Me:` and responses under `AI:`.
 
 ## Roadmap
 
 - **Additional Providers**  
-  While we already support several popular AI services, the proxy is designed to be extended easily. 
+  While we already support several popular AI services, the proxy is designed to be extended easily.<br> 
   We plan to continually add new integrations. Maybe?
 
 - **Advanced Features**  
@@ -122,7 +123,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ## Contributing
 
-We welcome contributions, bug reports, and feature requests. 
+We welcome contributions, bug reports, and feature requests. <br>
 Please open an issue or submit a pull request on GitHub.
 
 ## License
@@ -131,7 +132,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-With **Keys2Text Proxy**, you can unify your AI workflows under a single, 
+With **Keys2Text Proxy**, you can unify your AI workflows under a single, <br>
 OpenAI-compatible interface—while retaining the freedom to choose any provider that best fits your needs. 
 
 ---
