@@ -121,11 +121,11 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
   When using API keys for all of the AI providers, the list of models is over 300, which is wow and unweildy.<br>
 
 > Works great:<br>
-  - and I'm my own middle-man,<br> 
-  - it's not any slower or quirkier in responding, <br>
-  - any issues are now between me and the AI provider (like 429's and such) and handled via their support (*if ever*), <br>
-  - my API keys are directly used with AI providers (more secure), and no extra usage fees.<br>
-  * No offense to the ever growing number of cloud providers offering a similar service.
+  🏴‍☠️ and I'm my own middle-man,<br> 
+  🐢 it's not any slower or quirkier in responding, <br>
+  👽 any issues are now between me and the AI provider (like 429's and such) and handled via their support (*if ever*), <br>
+  🔐 my API keys are directly used with AI providers (more secure), and no extra usage fees.<br>
+  😱 No offense to the ever growing number of cloud providers offering a similar service.
 
 - **Chat Logging**  
 
