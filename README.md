@@ -101,11 +101,14 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 ## Usage
 
 - **novelcrafter**
+
   This app was written for and tested using [novelcrafter](https://www.novelcrafter.com), and 
   for my personal usage I use `LM Studio` in `AI Connections` and change the port. Works great!
 
 - **Chat Logging**  
-  Every conversation is automatically logged in a timestamped text file, e.g., `chatlog_YYYYMMDD_HHMMSS.txt`. This log tracks your prompts under `Me:` and responses under `AI:`.
+
+  Every conversation is automatically logged in a timestamped text file, e.g., `chat_YYYY-MM-DD_HH-MM-SS.txt`. 
+  This log is just a plain text file tracking your prompts under `Me:` and responses under `AI:`.
 
 ## Roadmap
 
