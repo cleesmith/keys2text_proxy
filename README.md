@@ -137,17 +137,18 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 - **Additional Providers**  
   While we (*who we? 🤔*) already support several popular AI services, <br>
-  the proxy is designed to be extended easily (*well if code python/fastapi/streaming-apis/wrangle-text-json then sure*).<br> 
-  We plan to continually add new integrations. Maybe?
+  the proxy is designed to be extended easily (*well, if you can code python/fastapi/generator-yielding/streaming-nonstreaming-apis/wrangle-json-and-text, then sure*).<br> 
+  We plan to continually add new integrations. Do *we*, maybe? Perhaps a new AI provider will emerge someday.🥸
 
 - **Advanced Features**  
   Next in the hopper 🎡:<br>
   🤖 NER (name entity recognition) for existing writing<br>
-  ⏪ reverse-NER for story outlining
+  ⏪🤖 reverse-NER for story outlining
+  📜 ✍🏽 both are kind of `codex` related (see `novelcrafter`)
 
 ## Contributing
 
-We welcome contributions, bug reports, and feature requests. <br>
+We welcome contributions (*we do?*), bug 🐞 reports, and feature 🍿 requests. <br>
 Please open an issue or submit a pull request on GitHub.
 
 ## License
