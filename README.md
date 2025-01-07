@@ -107,17 +107,19 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 - **This app is a personal proxy server**
 
-  It is intended to be run locally, i.e. on your computer and not in the cloud.
+  Keys2Text Proxy is intended to be run locally, i.e. on your computer, and not in the <br>
+  cloud/internet which may violate the AI providers API `Terms of Service/Use`.<br>
+  And there are advantages to running it locally.
 
 - **novelcrafter**
 
   Keys2Text was written for and tested using [novelcrafter](https://www.novelcrafter.com)<br>
-  Keys2Text handles CORS so your web browser can perform behind the scenes `fetch`-es to Keys2Text.<br>
+  Keys2Text handles CORS so your web browser can perform behind the scenes local `fetch`-es to Keys2Text Proxy server.<br>
 
 > Personally, for `novelcrafter` settings I use `LM Studio` in `AI Connections` and change the port.<br>
   When using API keys for all of the AI providers, the list of models is over 300, which is wow and unweildy.<br>
 
-> Works great: I'm my own middle-man, it's not slow, any issues are between me and the AI provider<br>
+> Works great: I'm my own middle-man, it's not slow in responding, any issues are between me and the AI provider<br>
   (like 429's and such), my API keys are directly used with AI providers (more secure), and no extra usage fees.<br>
   No offense to those cloud providers offering a similar service.
 
