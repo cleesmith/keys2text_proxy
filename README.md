@@ -115,8 +115,8 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
   This app handles CORS so your web browser can perform `fetch`es to Keys2Text.<br>
   Personally, for `novelcrafter` setting I use `LM Studio` in `AI Connections` and change the port.<br>
   When using API keys for all of the AI providers, the list of models is over 300, which is wow.<br>
-  Works great: I'm my own middle-man, it's not slow, any issues are between me and the AI provider<br>
-  (like 429's and such), my API keys are directly with AI providers (more secure), and no extra usage fees.
+>  Works great: I'm my own middle-man, it's not slow, any issues are between me and the AI provider<br>
+  (like 429's and such), my API keys are directly used with AI providers (more secure), and no extra usage fees.
 
 - **Chat Logging**  
 
