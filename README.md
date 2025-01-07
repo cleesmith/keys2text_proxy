@@ -14,19 +14,18 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 - **Full OpenAI API Compatibility**  
   Mimics OpenAI's endpoints and request/response formats, but only the text-based chat completion endpoints.<br>
-  But each AI provider now returns a list of available models by using `client.models.list()` so it stays up-to-date.
+  And now that each AI provider returns a list of available models by using `client.models.list()` the app can stay up-to-date with model releases.
 
 - **Multi-Provider Support**  
-   Supply your own API keys to these services, and the proxy will handle 
-   the request translation behind the scenes.
-   The API keys are found if exported in the environment.
+   Supply your own API keys to these services, and the proxy will handle the request translation behind the scenes.<br>
+   The API keys are found if/when you've exported them into the environment.
 
   With Keys2Text Proxy, you can easily connect to:
   - **OpenAI**  
   - **Anthropic (Claude)**  
-  - **Google AI Studio (Gemini)**  
-  - **Groq**  
-  - **OpenRouter**  
+  - **Google AI Studio (Gemini)**  *free as of Jan 2025*
+  - **Groq**    *free as of Jan 2025*
+  - **OpenRouter**    *a few free models as of Jan 2025*
   - **DeepSeek**  
   - **LM Studio**  
   - **Ollama**
