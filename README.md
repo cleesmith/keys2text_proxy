@@ -31,7 +31,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
   - **Ollama**
 
 - **Timestamped Chat History as plain text file**  
-  The app keeps a plain-text log of all requests and responses for reference and as an aid in writing.<br>
+  The app keeps a *plain text log* of all requests and responses for reference and as an aid in writing.<br>
   Conversations are saved with timestamps and paired using `Me:` and `AI:` labels.<br>
   A new text file is created whenever the app is started up, which allows for organizing <br>
   your AI chats simply by starting, stopping, and restarting this app.
@@ -40,7 +40,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 1. **Local HTTP Server**  
    Keys2Text Proxy starts an HTTP server (default: `http://localhost:8000`) with <br>
-   routes matching the OpenAI API—for example, `/v1/chat/completions`.
+   routes matching the OpenAI API —-for example, `/v1/chat/completions`.
 
 2. **Request Translation**  
    When a request arrives (in OpenAI-compatible format), the proxy translates it to <br>
@@ -85,12 +85,12 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
      DEEPSEEK_API_KEY=<your-deepseek-api-key>
      
      # LM Studio
-     LM_STUDIO_API_KEY=<your-lm-studio-api-key>
+     LM_STUDIO_API_KEY=<no-api-key-required-so-anything-works>
      
      # Ollama
-     OLLAMA_API_KEY=<your-ollama-api-key>
+     OLLAMA_API_KEY=<no-api-key-required-so-anything-works>
      ```
-   - Each key is only used if/when you send requests to the corresponding provider.
+   - Each key is only used if/when you send requests to a model from that provider.
 
 3. **Run the Proxy**  
    ```bash
