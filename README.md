@@ -94,7 +94,8 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
    uvicorn keys2text_proxy:app --workers 1 --host localhost --port 8000
    ```
    By default, the server runs on `http://localhost:8000`. <br>
-   You can now direct any OpenAI-compatible client to this URL.
+   You can now direct any OpenAI-compatible client to this URL, well maybe,<br>
+   as I have only used this app with `novelcrafter` (read more under Usage).
 
 
 ## Usage
