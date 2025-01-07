@@ -42,7 +42,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 2. **Request Translation**  
    When a request arrives (in OpenAI-compatible format), the proxy translates it to 
-   the corresponding provider’s format.
+   the corresponding provider’s format using the model named in the request.
 
 3. **Response Translation**  
    The provider’s response is then converted back into the OpenAI-like responses.
@@ -99,6 +99,10 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 
 ## Usage
+
+- **novelcrafter**
+  This app was written for and tested using [novelcrafter](https://www.novelcrafter.com), and 
+  for my personal usage I use `LM Studio` in `AI Connections` and change the port. Works great!
 
 - **Chat Logging**  
   Every conversation is automatically logged in a timestamped text file, e.g., `chatlog_YYYYMMDD_HHMMSS.txt`. This log tracks your prompts under `Me:` and responses under `AI:`.
