@@ -98,35 +98,17 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ## Usage
 
-- **Programmatic**  
-  Point your favorite OpenAI-based code or libraries to the proxy server:
-  ```python
-  import openai
-  
-  # Tell the OpenAI client library to talk to your local Keys2Text Proxy
-  openai.api_base = "http://localhost:8000/v1"
-  
-  # Optionally, set a placeholder for openai.api_key (not used by the proxy):
-  openai.api_key = "YOUR_PLACEHOLDER_KEY"
-  
-  response = openai.ChatCompletion.create(
-      model="claude-3-opus-20240229",  # or any model recognized by your chosen provider
-      messages=[{"role": "user", "content": "Hello from Keys2Text!"}]
-  )
-  print(response)
-  ```
-  The proxy will route the request to Anthropic (in this example), translating messages and responses into the OpenAI style.
-
 - **Chat Logging**  
   Every conversation is automatically logged in a timestamped text file, e.g., `chatlog_YYYYMMDD_HHMMSS.txt`. This log tracks your prompts under `Me:` and responses under `AI:`.
 
 ## Roadmap
 
 - **Additional Providers**  
-  While we already support several popular AI services, the proxy is designed to be extended easily. We plan to continually add new integrations.
+  While we already support several popular AI services, the proxy is designed to be extended easily. 
+  We plan to continually add new integrations. Maybe?
 
 - **Advanced Features**  
-  Future releases aim to include advanced configurations, caching, rate-limiting, and fine-tuning support to better manage complex workloads.
+  Next Up: NER (name entity recognition) for existing writing and reverse-NER for story outlining.
 
 ## Contributing
 
@@ -139,70 +121,10 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-With **Keys2Text Proxy**, you can unify your AI workflows under a single, OpenAI-compatible interface—while retaining the freedom to choose any provider that best fits your needs. 
+With **Keys2Text Proxy**, you can unify your AI workflows under a single, 
+OpenAI-compatible interface—while retaining the freedom to choose any provider that best fits your needs. 
+
+---
+
+
 Enjoy! ☮️
-
-
-
-
-
-
-
-
-
-
-# Keys2Text Proxy
-
-Keys2Text Proxy is a Python application that allows users to interact with Anthropic's 
-Claude models using the same interface as the OpenAI API. Although it mimics 
-the OpenAI API endpoints, Keys2Text Proxy does not actually use or require an OpenAI 
-API key. Instead, it translates the requests and responses between the two APIs, 
-enabling users to access Claude's capabilities through a familiar interface.
-
-Keys2Text Proxy requires your Anthropic API key to function, as it communicates 
-directly with the Anthropic Claude API behind the scenes.
-
-## Key Features
-
-- Seamless integration between a facade/mimicked OpenAI API and the real Anthropic Claude API
-- Support for multiple Claude models:
-  - Opus: claude-3-opus-20240229
-  - Sonnet: claude-3-sonnet-20240229
-  - Haiku: claude-3-haiku-20240307
-- A command-line interface (CLI) mode for terminal usage
-- A plain text timestamped chat file/log of your requests plus Claude's responses, as pairs of "Me:" and "AI:"
-
-... the above needs rewriting as the app has grown beyond just Anthropic
-... now it's a proxy api server offering full OpenAI API compatibility, while using 
-each AI providers API with users api keys in the backend
-
-## Installation
-
-1. Clone the repository:
-   ```
-   git clone https://github.com/cleesmith/keys2text_proxy.git
-   ```
-
-2. Navigate to the project directory:
-   ```
-   cd keys2text_proxy
-   ```
-
-3. Install the required dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-
-## Usage
-
-To run Keys2Text Proxy in CLI mode, use the `--cli` flag:
-```
-uvicorn keys2text_proxy:app --workers 1 --host localhost --port 8000
-```
-
-The application will start the API proxy server and listen for incoming requests.
-
-
-## Contributing
-
-If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
