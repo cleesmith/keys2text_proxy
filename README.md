@@ -136,7 +136,8 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 ## Roadmap
 
 - **Additional Providers**  
-  While we (*who we? 🤔*) already support several popular AI services, the proxy is designed to be extended easily.<br> 
+  While we (*who we? 🤔*) already support several popular AI services, <br>
+  the proxy is designed to be extended easily (*well if code python/fastapi/streaming-apis/wrangle-text-json then sure*).<br> 
   We plan to continually add new integrations. Maybe?
 
 - **Advanced Features**  
