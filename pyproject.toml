@@ -1,0 +1,45 @@
+[build-system]
+# These specify the tools needed to build your package
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# Core project metadata
+name = "keys2text_proxy"
+version = "2025.01.1.0"
+description = "Keys2Text Proxy is a Python-based application that acts as an API proxy server, offering full OpenAI API compatibility while seamlessly routing requests to multiple AI providers using your own API keys."
+readme = "README.md"
+requires-python = ">=3.10"
+
+# License specification
+license = { text = "MIT" }
+
+# Author information
+authors = [
+    { name = "Clee Smith", email = "cleesmith2006@gmail.com" }
+]
+
+# Project URLs
+urls = { "Homepage" = "https://github.com/cleesmith/keys2text_proxy" }
+
+# Python package classifiers
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+# Dependencies using the recommended list format
+dependencies = [
+    "anthropic==0.42.0",
+    "fastapi==0.115.6",
+    "google-generativeai==0.8.3",
+    "groq==0.13.1",
+    "openai==1.59.3",
+    "uvicorn==0.34.0"
+]
+
+# Entry points for command-line scripts
+[project.scripts]
+keys2text_proxy = "keys2text_proxy.main:main"
+
