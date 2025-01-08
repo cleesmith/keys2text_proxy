@@ -62,7 +62,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ## Installation
 
-**Pick your poison** based on your setup:<br>
+**Pick your ☠️ poison** based on your setup:<br>
 - Option 1: Install via **pip** (if you already have Python)
 - Option 2: Install via **Miniconda** (for a fresh start)
 
@@ -86,7 +86,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ### Option 2: Install via Miniconda to install python/pip in a separate environment
 
-#### Windows
+#### Windows 💾
 
 1. Open **Command Prompt**.
 2. Run:
@@ -105,7 +105,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
    keys2text_proxy
    ```
 
-#### macOS
+#### macOS 🍎
 
 1. Open **Terminal**.
 2. Run:
@@ -132,7 +132,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ---
 
-## Troubleshooting
+## Troubleshooting 😈
 
 - **Windows**: If you get permission errors, try running Command Prompt as administrator.
 - **macOS**: If conda isn’t recognized, make sure you ran `conda init --all` and then **reopened** your terminal.
@@ -143,7 +143,7 @@ After configuring your API keys, Keys2Text Proxy will start on your machine, rea
 
 ---
 
-2. **Configuration of API keys**  
+2. **Configuration of API 🗝️ keys**  
    - Copy or rename `.env.example` to `.env`.
    - Insert your API keys for each provider you wish to use. For example:
      ```plaintext
@@ -201,12 +201,12 @@ After configuring your API keys, Keys2Text Proxy will start on your machine, rea
 > Personally, for `novelcrafter` settings I use `LM Studio` in `AI Connections` and change the port.<br>
   When using API keys for all of the AI providers, the list of models is over 300, which is wow and unweildy.<br>
 
-> Works great:<br>
+> So far it all works great together:<br>
   🏴‍☠️ and I'm my own middle-man<br> 
-  🐢 it's not any slower or quirkier in responding than the usual chatters<br>
-  👽 issues are between me and the AI provider (*429's and such*) and handled via their support (*if ever*)<br>
+  🐢 the proxy is not any slower or quirkier in responding than the usual chatters<br>
+  👽 any issues are between me and the AI provider (*429's and such*) and handled via their support (*if ever*)<br>
   🔐 my API keys are directly used with AI providers (more secure), and no extra usage fees<br>
-  💸💰 yes, you still pay for API usage (*when not free*)<br><br>
+  💰 yes, you still pay for API usage (*when not free*) via your API keys directly to the AI provider<br><br>
   😱 No offense to the ever growing number of cloud providers offering a similar service.
 
 - **Chat Logging**  
@@ -227,7 +227,7 @@ After configuring your API keys, Keys2Text Proxy will start on your machine, rea
   Next in the hopper 🎡:<br>
   🤖 NER (name entity recognition) for existing writing<br>
   ⏪🤖 reverse-NER for story outlining<br>
-  📜 ✍🏽 both are kind of `codex` related (see `novelcrafter`)
+  📜 ✍🏽 both are kind of `codex` related (like in `novelcrafter`)
 
 ## Contributing
 
@@ -242,6 +242,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 With **Keys2Text Proxy**, you can unify your AI workflows under a single, <br>
 OpenAI-compatible interface—while retaining the freedom to choose any provider that best fits your needs. 
+*If any of the above reads like AI writing, like all of that "we" talk, there is only "I" ... 🙋🏽‍♂️ guilty.*
 
 ---
 
