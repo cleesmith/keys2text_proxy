@@ -58,8 +58,8 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ## Installation
 
-**Pick one method** based on your setup:<br>
-- Option 1: Install via **pip** (if you already have Python) or <br>
+**Pick your poison** based on your setup:<br>
+- Option 1: Install via **pip** (if you already have Python)
 - Option 2: Install via **Miniconda** (for a fresh start).
 
 ### Option 1: Install via pip
