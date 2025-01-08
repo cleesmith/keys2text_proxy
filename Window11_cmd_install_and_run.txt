@@ -1,0 +1,158 @@
+Windows 11 cmd to install and run keys2text_proxy.
+
+... install it:
+C:\Users\clees\clskeys>pip install keys2text_proxy
+
+Collecting keys2text_proxy
+  Downloading keys2text_proxy-2025.1.1.1-py3-none-any.whl (37 kB)
+Collecting fastapi==0.115.6
+  Downloading fastapi-0.115.6-py3-none-any.whl (94 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.8/94.8 kB 1.8 MB/s eta 0:00:00
+Collecting google-generativeai==0.8.3
+  Downloading google_generativeai-0.8.3-py3-none-any.whl (160 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 160.8/160.8 kB 4.7 MB/s eta 0:00:00
+Collecting uvicorn==0.34.0
+  Downloading uvicorn-0.34.0-py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.3/62.3 kB ? eta 0:00:00
+Collecting groq==0.13.1
+  Downloading groq-0.13.1-py3-none-any.whl (109 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 109.1/109.1 kB ? eta 0:00:00
+Collecting anthropic==0.42.0
+  Downloading anthropic-0.42.0-py3-none-any.whl (203 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 203.4/203.4 kB 12.1 MB/s eta 0:00:00
+Collecting openai==1.59.3
+  Downloading openai-1.59.3-py3-none-any.whl (454 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 454.8/454.8 kB 7.2 MB/s eta 0:00:00
+Collecting httpx<1,>=0.23.0
+  Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.5/73.5 kB ? eta 0:00:00
+Collecting typing-extensions<5,>=4.10
+  Downloading typing_extensions-4.12.2-py3-none-any.whl (37 kB)
+Collecting anyio<5,>=3.5.0
+  Downloading anyio-4.8.0-py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.0/96.0 kB ? eta 0:00:00
+Collecting distro<2,>=1.7.0
+  Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+Collecting jiter<1,>=0.4.0
+  Downloading jiter-0.8.2-cp310-cp310-win_amd64.whl (204 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 204.4/204.4 kB 12.1 MB/s eta 0:00:00
+Collecting pydantic<3,>=1.9.0
+  Downloading pydantic-2.10.4-py3-none-any.whl (431 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 431.8/431.8 kB 13.2 MB/s eta 0:00:00
+Collecting sniffio
+  Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+Collecting starlette<0.42.0,>=0.40.0
+  Downloading starlette-0.41.3-py3-none-any.whl (73 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.2/73.2 kB 3.9 MB/s eta 0:00:00
+Collecting google-api-core
+  Downloading google_api_core-2.24.0-py3-none-any.whl (158 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 158.6/158.6 kB 9.3 MB/s eta 0:00:00
+Collecting google-auth>=2.15.0
+  Downloading google_auth-2.37.0-py2.py3-none-any.whl (209 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.8/209.8 kB 6.2 MB/s eta 0:00:00
+Collecting tqdm
+  Downloading tqdm-4.67.1-py3-none-any.whl (78 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.5/78.5 kB ? eta 0:00:00
+Collecting protobuf
+  Downloading protobuf-5.29.2-cp310-abi3-win_amd64.whl (434 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 434.5/434.5 kB 6.7 MB/s eta 0:00:00
+Collecting google-ai-generativelanguage==0.6.10
+  Downloading google_ai_generativelanguage-0.6.10-py3-none-any.whl (760 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 760.0/760.0 kB 11.9 MB/s eta 0:00:00
+Collecting google-api-python-client
+  Downloading google_api_python_client-2.157.0-py2.py3-none-any.whl (12.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 10.6 MB/s eta 0:00:00
+Collecting click>=7.0
+  Downloading click-8.1.8-py3-none-any.whl (98 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.2/98.2 kB ? eta 0:00:00
+Collecting h11>=0.8
+  Downloading h11-0.14.0-py3-none-any.whl (58 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.3/58.3 kB 3.2 MB/s eta 0:00:00
+Collecting proto-plus<2.0.0dev,>=1.22.3
+  Downloading proto_plus-1.25.0-py3-none-any.whl (50 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.1/50.1 kB 2.7 MB/s eta 0:00:00
+Collecting exceptiongroup>=1.0.2
+  Downloading exceptiongroup-1.2.2-py3-none-any.whl (16 kB)
+Collecting idna>=2.8
+  Downloading idna-3.10-py3-none-any.whl (70 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.4/70.4 kB ? eta 0:00:00
+Collecting colorama
+  Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Collecting cachetools<6.0,>=2.0.0
+  Downloading cachetools-5.5.0-py3-none-any.whl (9.5 kB)
+Collecting rsa<5,>=3.1.4
+  Downloading rsa-4.9-py3-none-any.whl (34 kB)
+Collecting pyasn1-modules>=0.2.1
+  Downloading pyasn1_modules-0.4.1-py3-none-any.whl (181 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.5/181.5 kB 10.7 MB/s eta 0:00:00
+Collecting httpcore==1.*
+  Downloading httpcore-1.0.7-py3-none-any.whl (78 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.6/78.6 kB ? eta 0:00:00
+Collecting certifi
+  Downloading certifi-2024.12.14-py3-none-any.whl (164 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 164.9/164.9 kB 9.7 MB/s eta 0:00:00
+Collecting annotated-types>=0.6.0
+  Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Collecting pydantic-core==2.27.2
+  Downloading pydantic_core-2.27.2-cp310-cp310-win_amd64.whl (2.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 6.3 MB/s eta 0:00:00
+Collecting requests<3.0.0.dev0,>=2.18.0
+  Downloading requests-2.32.3-py3-none-any.whl (64 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.9/64.9 kB 3.4 MB/s eta 0:00:00
+Collecting googleapis-common-protos<2.0.dev0,>=1.56.2
+  Downloading googleapis_common_protos-1.66.0-py2.py3-none-any.whl (221 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 221.7/221.7 kB 14.1 MB/s eta 0:00:00
+Collecting uritemplate<5,>=3.0.1
+  Downloading uritemplate-4.1.1-py2.py3-none-any.whl (10 kB)
+Collecting google-auth-httplib2<1.0.0,>=0.2.0
+  Downloading google_auth_httplib2-0.2.0-py2.py3-none-any.whl (9.3 kB)
+Collecting httplib2<1.dev0,>=0.19.0
+  Downloading httplib2-0.22.0-py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.9/96.9 kB 5.8 MB/s eta 0:00:00
+Collecting grpcio<2.0dev,>=1.33.2
+  Downloading grpcio-1.69.0-cp310-cp310-win_amd64.whl (4.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 10.8 MB/s eta 0:00:00
+Collecting grpcio-status<2.0.dev0,>=1.33.2
+  Downloading grpcio_status-1.69.0-py3-none-any.whl (14 kB)
+Collecting pyparsing!=3.0.0,!=3.0.1,!=3.0.2,!=3.0.3,<4,>=2.4.2
+  Downloading pyparsing-3.2.1-py3-none-any.whl (107 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 107.7/107.7 kB 6.1 MB/s eta 0:00:00
+Collecting pyasn1<0.7.0,>=0.4.6
+  Downloading pyasn1-0.6.1-py3-none-any.whl (83 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 83.1/83.1 kB ? eta 0:00:00
+Collecting charset-normalizer<4,>=2
+  Downloading charset_normalizer-3.4.1-cp310-cp310-win_amd64.whl (102 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 102.8/102.8 kB ? eta 0:00:00
+Collecting urllib3<3,>=1.21.1
+  Downloading urllib3-2.3.0-py3-none-any.whl (128 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 128.4/128.4 kB 7.4 MB/s eta 0:00:00
+Installing collected packages: urllib3, uritemplate, typing-extensions, sniffio, pyparsing, pyasn1, protobuf, jiter, idna, h11, grpcio, exceptiongroup, distro, colorama, charset-normalizer, certifi, cachetools, annotated-types, tqdm, rsa, requests, pydantic-core, pyasn1-modules, proto-plus, httplib2, httpcore, googleapis-common-protos, click, anyio, uvicorn, starlette, pydantic, httpx, grpcio-status, google-auth, openai, groq, google-auth-httplib2, google-api-core, fastapi, anthropic, google-api-python-client, google-ai-generativelanguage, google-generativeai, keys2text_proxy
+Successfully installed annotated-types-0.7.0 anthropic-0.42.0 anyio-4.8.0 cachetools-5.5.0 certifi-2024.12.14 charset-normalizer-3.4.1 click-8.1.8 colorama-0.4.6 distro-1.9.0 exceptiongroup-1.2.2 fastapi-0.115.6 google-ai-generativelanguage-0.6.10 google-api-core-2.24.0 google-api-python-client-2.157.0 google-auth-2.37.0 google-auth-httplib2-0.2.0 google-generativeai-0.8.3 googleapis-common-protos-1.66.0 groq-0.13.1 grpcio-1.69.0 grpcio-status-1.69.0 h11-0.14.0 httpcore-1.0.7 httplib2-0.22.0 httpx-0.28.1 idna-3.10 jiter-0.8.2 keys2text_proxy-2025.1.1.1 openai-1.59.3 proto-plus-1.25.0 protobuf-5.29.2 pyasn1-0.6.1 pyasn1-modules-0.4.1 pydantic-2.10.4 pydantic-core-2.27.2 pyparsing-3.2.1 requests-2.32.3 rsa-4.9 sniffio-1.3.1 starlette-0.41.3 tqdm-4.67.1 typing-extensions-4.12.2 uritemplate-4.1.1 urllib3-2.3.0 uvicorn-0.34.0
+
+
+... now run it, note that there were API keys in the environment for Groq and Ollama:
+C:\Users\clees\clskeys>keys2text_proxy
+
+INFO:     Started server process [12564]
+INFO:     Waiting for application startup.
+
+***********************************************************
+Welcome to Keys2Text Proxy to AI providers and chat models!
+. . . standby gathering a list of models based on your provider API keys:
+*** List of models available:
+{'object': 'list', 'data': [{'id': 'keys2text-mock', 'object': 'model', 'created': 1735707600, 'owned_by': 'keys2text'}, {'id': 'gemma2-9b-it', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama-3.1-70b-versatile', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama-3.1-8b-instant', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama-3.2-11b-vision-preview', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama-3.2-1b-preview', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama-3.2-3b-preview', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama-3.2-90b-vision-preview', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama-3.3-70b-specdec', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama-3.3-70b-versatile', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama-guard-3-8b', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama3-70b-8192', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'llama3-8b-8192', 'object': 'model', 'created': 1736350495, 'owned_by': 'groq'}, {'id': 'mixtral-8x7b-32768', 'object': 'model', 'created': 1736350495,'owned_by': 'groq'}, {'id': 'tinyllama:latest', 'object': 'model', 'created': 1736350511, 'owned_by': 'ollama'}]}
+
+Fire up novelcrafter and enjoy plain text files of your chats.
+For this chat session see:
+C:\Users\clees\clskeys\chat_2025-01-08_10-34-55.txt
+***********************************************************
+
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61063 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61063 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61168 - "OPTIONS /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61168 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61170 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61180 - "OPTIONS /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61180 - "POST /v1/chat/completions HTTP/1.1" 200 OK

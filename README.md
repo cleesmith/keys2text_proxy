@@ -143,36 +143,21 @@ After configuring your API keys, Keys2Text Proxy will start on your machine, rea
 
 ---
 
-2. **Configuration of API 🗝️ keys**  
-   - Copy or rename `.env.example` to `.env`.
-   - Insert your API keys for each provider you wish to use. For example:
-     ```plaintext
-     # Example .env
-     # OpenAI
-     OPENAI_API_KEY=<your-openai-api-key>
-     
-     # Anthropic
-     ANTHROPIC_API_KEY=<your-anthropic-api-key>
-     
-     # Google AI Studio
-     GOOGLE_AI_STUDIO_API_KEY=<your-google-ai-studio-api-key>
-     
-     # Groq
-     GROQ_API_KEY=<your-groq-api-key>
-     
-     # OpenRouter
-     OPENROUTER_API_KEY=<your-openrouter-api-key>
-     
-     # DeepSeek
-     DEEPSEEK_API_KEY=<your-deepseek-api-key>
-     
-     # LM Studio
-     LM_STUDIO_API_KEY=<no-api-key-required-so-anything-works>
-     
-     # Ollama
-     OLLAMA_API_KEY=<no-api-key-required-so-anything-works>
-     ```
-   - Each key is only used if/when you send requests to a model from that provider.
+2. **Configuration of API 🔑 keys 🗝️**  
+- Set your API keys as environment variables using the `export` command in your shell. For example:
+  ```bash
+  export OPENAI_API_KEY=api-key-here
+  export ANTHROPIC_API_KEY=api-key-here
+  export GOOGLE_AI_STUDIO_API_KEY=api-key-here
+  export GROQ_API_KEY=api-key-here
+  export OPENROUTER_API_KEY=api-key-here
+  export DEEPSEEK_API_KEY=api-key-here
+  export LM_STUDIO_API_KEY=api-key-here
+  export OLLAMA_API_KEY=api-key-here
+  ```
+- Each key is only used if/when you send requests to a model from that provider.
+
+---
 
 3. **Run the Proxy**  
    ```bash
@@ -183,6 +168,7 @@ After configuring your API keys, Keys2Text Proxy will start on your machine, rea
 > You can now direct any OpenAI-compatible client to this URL, well maybe,<br>
   as I have only used this app with `novelcrafter` (read more under Usage).
 
+---
 
 ## Usage
 

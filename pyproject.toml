@@ -6,8 +6,8 @@ build-backend = "setuptools.build_meta"
 [project]
 # Core project metadata
 name = "keys2text_proxy"
-version = "2025.01.1.1"
-description = "Keys2Text Proxy is a Python-based application that acts as an API proxy server, offering full OpenAI API compatibility while seamlessly routing requests to multiple AI providers using your own API keys."
+version = "2025.01.1.2"
+description = "Keys2Text Proxy is a Python-based application that acts as an API proxy server, offering full OpenAI API compatibility while seamlessly routing requests to multiple AI providers using your own API keys. See more at: https://github.com/cleesmith/keys2text_proxy"
 readme = "README.md"
 requires-python = ">=3.10"
 
