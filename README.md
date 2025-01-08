@@ -143,8 +143,10 @@ After configuring your API keys, Keys2Text Proxy will start on your machine, rea
 
 ---
 
-2. **Configuration of API 🔑 keys 🗝️**  
-- Set your API keys as environment variables using the `export` command in your shell. For example:
+2. **Configuration of API 🔑 keys 🔑**  
+- Set your API keys as environment variables using the appropriate command for your operating system:
+
+#### For Linux/macOS:
   ```bash
   export OPENAI_API_KEY=api-key-here
   export ANTHROPIC_API_KEY=api-key-here
@@ -152,8 +154,22 @@ After configuring your API keys, Keys2Text Proxy will start on your machine, rea
   export GROQ_API_KEY=api-key-here
   export OPENROUTER_API_KEY=api-key-here
   export DEEPSEEK_API_KEY=api-key-here
-  export LM_STUDIO_API_KEY=api-key-here
-  export OLLAMA_API_KEY=api-key-here
+  # note: these are not used and not required:
+  export LM_STUDIO_API_KEY=lmstudio
+  export OLLAMA_API_KEY=ollama
+  ```
+
+#### For Windows:
+  ```bash
+  set OPENAI_API_KEY=api-key-here
+  set ANTHROPIC_API_KEY=api-key-here
+  set GOOGLE_AI_STUDIO_API_KEY=api-key-here
+  set GROQ_API_KEY=api-key-here
+  set OPENROUTER_API_KEY=api-key-here
+  set DEEPSEEK_API_KEY=api-key-here
+  REM note: these are not used and not required:
+  set LM_STUDIO_API_KEY=lmstudio
+  set OLLAMA_API_KEY=ollama
   ```
 - Each key is only used if/when you send requests to a model from that provider.
 
