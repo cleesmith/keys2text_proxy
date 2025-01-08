@@ -10,7 +10,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 - **Free and Open-source forever**  
   Keys2Text Proxy is a Python FastAPI based app that is free and open-sourced.<br>
-  After all, it only exists because of the AI providers and their APIs.
+  This technology relies on two key foundations: the essential infrastructure provided by AI companies and their APIs, along with innovative writing tools like novelcrafter that help bring these capabilities to life.
 
 - **Full OpenAI API Compatibility**  
   Mimics OpenAI's endpoints and request/response formats, but only the text-based chat completion endpoints.<br>
@@ -23,9 +23,9 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
   With Keys2Text Proxy, you can easily connect to:
   - **OpenAI**  
   - **Anthropic (Claude)**  
-  - **Google AI Studio (Gemini)**  *free as of Jan 2025*
-  - **Groq**    *free as of Jan 2025*
-  - **OpenRouter**    *a few free models as of Jan 2025*
+  - **Google AI Studio (Gemini)** &nbsp;&nbsp;&nbsp;*free as of Jan 2025*
+  - **Groq** &nbsp;&nbsp;&nbsp;*free as of Jan 2025*
+  - **OpenRouter** &nbsp;&nbsp;&nbsp;*a few free models as of Jan 2025*
   - **DeepSeek**  
   - **LM Studio**  
   - **Ollama**
