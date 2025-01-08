@@ -60,7 +60,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 **Pick your poison** based on your setup:<br>
 - Option 1: Install via **pip** (if you already have Python)
-- Option 2: Install via **Miniconda** (for a fresh start).
+- Option 2: Install via **Miniconda** (for a fresh start)
 
 ### Option 1: Install via pip
 
@@ -139,7 +139,7 @@ After configuring your API keys, Keys2Text Proxy will start on your machine, rea
 
 ---
 
-2. **Configuration**  
+2. **Configuration of API keys**  
    - Copy or rename `.env.example` to `.env`.
    - Insert your API keys for each provider you wish to use. For example:
      ```plaintext
