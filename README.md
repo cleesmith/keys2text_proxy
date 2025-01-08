@@ -31,11 +31,11 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
   - **Ollama**
 
 - **Timestamped Chat History as plain text file**  
-  The app keeps a *plain text log* of all requests and responses for reference and as an aid in writing.<br>
-  Conversations are saved with timestamps and paired using `Me:` and `AI:` labels.<br>
-  A new text file is created whenever the app is started up, which allows for organizing <br>
-  your AI chats simply by starting, stopping, and restarting this app.<br>
-  This was the result of a personal itch; I find repeatedly doing copy/paste's tedious, as it's<br>
+  - The app keeps a *plain text log* of all requests and responses for reference and as an aid in writing.<br>
+  - Conversations are saved with timestamps and paired using `Me:` and `AI:` labels.<br>
+  - A new text file is created whenever the app is started up, which allows for organizing <br>
+  your AI chats simply by starting, stopping, and restarting this app.
+> This was the result of a personal itch; I find repeatedly doing copy/paste's tedious, as it's<br>
   much easier to just have everything then do editing.
 
 ## How It Works
