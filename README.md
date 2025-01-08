@@ -54,14 +54,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 4. **Provider-Specific API Keys**  
    Users configure environment variables, API keys, for their preferred AI services. 
 
-## Getting Started
-
-1. **Installation**  
-   ```bash
-   ```
-Here’s a shorter, friendlier guide to get Keys2Text Proxy up and running:
-
----
+--
 
 ## Installation
 
@@ -144,7 +137,7 @@ Here’s a shorter, friendlier guide to get Keys2Text Proxy up and running:
 
 After configuring your API keys, Keys2Text Proxy will start on your machine, ready for NovelCrafter or any other app that needs it.
 
-
+---
 
 2. **Configuration**  
    - Copy or rename `.env.example` to `.env`.
