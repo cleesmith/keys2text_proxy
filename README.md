@@ -8,7 +8,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ## Intro blurb used on novelcrafter's discord
 
-> Keys2Text Proxy is a Python FastAPI application that lets you use multiple AI providers (like Anthropic, Google AI Studio, Groq, OpenRouter, DeepSeek, LM Studio, and Ollama) through a single OpenAI-compatible interface using your own API keys. It runs locally on your computer, saves chat history as plain text, and works nicely with NovelCrafter. The code is open source and free to use.
+> Keys2Text Proxy is a Python FastAPI application that lets you use multiple AI providers (OpenAI, Anthropic, Google AI Studio, Groq, OpenRouter, DeepSeek, LM Studio, and Ollama) through a single OpenAI-compatible interface using your own API keys. It runs locally on your computer, saves chat history as plain text, and works nicely with NovelCrafter. The code is open source and free to use.
 
 ## Key Features
 
