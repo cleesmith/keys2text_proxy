@@ -58,10 +58,93 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 1. **Installation**  
    ```bash
-   git clone https://github.com/yourusername/keys2text-proxy.git
-   cd keys2text-proxy
-   pip install -r requirements.txt
    ```
+Here’s a shorter, friendlier guide to get Keys2Text Proxy up and running:
+
+---
+
+## Installation
+
+**Pick one method** based on your setup:<br>
+**pip** (if you already have Python) or <br>
+**Miniconda** (for a fresh start).
+
+### Option 1: Install via pip
+
+1. Open a terminal (mac) or Command Prompt (Windows).
+2. Run:
+   ```bash
+   python --version
+   pip --version
+   ```
+   ```bash
+   pip install keys2text_proxy
+   ```
+3. Start the proxy:
+   ```bash
+   keys2text_proxy
+   ```
+   *Note: this will fail if you do not already have API keys defined in your environment.*
+
+
+### Option 2: Install via Miniconda to install python/pip in a separate environment
+
+#### Windows
+
+1. Open **Command Prompt**.
+2. Run:
+   ```batch
+   curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -o miniconda.exe
+   start /wait "" .\miniconda.exe /S
+   del miniconda.exe
+   ```
+3. Make a new folder, create a conda environment, and install Keys2Text Proxy:
+   ```batch
+   mkdir someFolder
+   cd someFolder
+   conda create -n keysapp python=3.11
+   conda activate keysapp
+   pip install keys2text_proxy
+   keys2text_proxy
+   ```
+
+#### macOS
+
+1. Open **Terminal**.
+2. Run:
+   ```bash
+   mkdir -p ~/miniconda3
+   curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/miniconda3/miniconda.sh
+   bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+   rm ~/miniconda3/miniconda.sh
+   ```
+3. Initialize your shell:
+   ```bash
+   source ~/miniconda3/bin/activate
+   conda init --all
+   ```
+4. Close and reopen Terminal, then:
+   ```bash
+   mkdir someFolder
+   cd someFolder
+   conda create -n keysapp python=3.11
+   conda activate keysapp
+   pip install keys2text_proxy
+   keys2text_proxy
+   ```
+
+---
+
+## Troubleshooting
+
+- **Windows**: If you get permission errors, try running Command Prompt as administrator.
+- **macOS**: If conda isn’t recognized, make sure you ran `conda init --all` and then **reopened** your terminal.
+- **Conda environment**: Double-check you’ve activated it (`conda activate keysapp`) before starting the proxy.
+
+
+After configuring your API keys, Keys2Text Proxy will start on your machine, ready for NovelCrafter or any other app that needs it.
+
+
 
 2. **Configuration**  
    - Copy or rename `.env.example` to `.env`.
@@ -96,11 +179,12 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 3. **Run the Proxy**  
    ```bash
-   uvicorn keys2text_proxy:app --workers 1 --host localhost --port 8000
+   keys2text_proxy
    ```
    By default, the server runs on `http://localhost:8000`. <br>
-   You can now direct any OpenAI-compatible client to this URL, well maybe,<br>
-   as I have only used this app with `novelcrafter` (read more under Usage).
+
+> You can now direct any OpenAI-compatible client to this URL, well maybe,<br>
+  as I have only used this app with `novelcrafter` (read more under Usage).
 
 
 ## Usage
