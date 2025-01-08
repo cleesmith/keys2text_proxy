@@ -54,7 +54,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 4. **Provider-Specific API Keys**  
    Users configure environment variables, API keys, for their preferred AI services. 
 
---
+---
 
 ## Installation
 
