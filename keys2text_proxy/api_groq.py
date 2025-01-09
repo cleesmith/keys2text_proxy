@@ -1,5 +1,6 @@
 # api_groq.py
 import os
+from dotenv import load_dotenv
 import sys
 import traceback
 import re
@@ -13,11 +14,20 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from groq import Groq
 from groq import AsyncGroq
 
+# load variables from .env file if they are not already in the environment
+load_dotenv()
+
+# get the API key, prioritizing environment variables
+api_key = os.getenv("GROQ_API_KEY")
+if api_key:
+    print(">>> GROQ_API_KEY found.")
+else:
+    print(">>> GROQ_API_KEY not found! Please set it in the environment or .env file.")
 
 async def groq_models():
     try:
         client = AsyncGroq(
-            api_key=os.environ['GROQ_API_KEY'],
+            api_key=api_key,
             timeout=5.0,
             max_retries=0, 
         )
@@ -35,9 +45,12 @@ def word_count(s):
 
 def extract_request_data(request_data):
     # initialize a dictionary with all possible OpenAI API request parameters
+    model_requested = request_data.get('model')
+    if "/" in model_requested:
+        ignored, model_requested = model_requested.split("/", 1)
     params = {
         "messages": request_data.get('messages'),
-        "model": request_data.get('model'),
+        "model": model_requested,
         "frequency_penalty": request_data.get('frequency_penalty'),
         # not supported by Groq api:
         # "logprobs": request_data.get('logprobs'),
@@ -216,7 +229,7 @@ async def chat_completion_json(request_data, chat_file):
     model = params.get('model', None)
     log_me_request(chat_file, model, request_data)
     client = AsyncGroq(
-        api_key=os.environ['GROQ_API_KEY'], 
+        api_key=api_key, 
         timeout=30,
         max_retries=0, 
     )
@@ -230,7 +243,7 @@ async def chat_completion_stream(request_data, chat_file):
     model = params.get('model', None)
     log_me_request(chat_file, model, request_data)
     client = AsyncGroq(
-        api_key=os.environ['GROQ_API_KEY'], 
+        api_key=api_key, 
         timeout=30,
         max_retries=0, 
     )

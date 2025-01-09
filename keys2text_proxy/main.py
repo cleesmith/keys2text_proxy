@@ -5,7 +5,6 @@
 # ...or do what users would do after pip install: 
 #   keys2text_proxy
 import os
-import signal
 import sys
 import time
 import datetime
@@ -72,11 +71,19 @@ def append_models_to_all(models, provider):
         return
     for model_name in models:
         all_models["data"].append({
-            "id": model_name,
+            "id": f"{provider}/{model_name}",
             "object": "model",
             "created": datetime_to_timestamp(datetime.datetime.now()),
             "owned_by": provider
         })
+
+def sort_all_models():
+    global all_models
+    all_models["data"] = sorted(
+        all_models["data"], 
+        key=lambda x: (x["owned_by"], x["id"])
+    )
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -90,6 +97,7 @@ async def lifespan(app: FastAPI):
     print(f"\n***********************************************************")
     print(f"Welcome to Keys2Text Proxy to AI providers and chat models!")
     print(f". . . standby gathering a list of models based on your provider API keys:")
+
     for provider, handlers in provider_to_api_handler.items():
         models = None
         if provider == "anthropic":
@@ -110,11 +118,30 @@ async def lifespan(app: FastAPI):
             models = await deepseek_models()
         if models:
             append_models_to_all(models, provider)
-    print(f"*** List of models available:\n{all_models}\n")
-    print(f"Fire up novelcrafter and enjoy plain text files of your chats.")
+            sort_all_models()
+            # for model in all_models["data"]:
+            #     print(model)
+
+    print(f"*** List of models available:\n")
+
+    data = all_models["data"]
+    providers = {}
+    for model in data:
+        provider = model["owned_by"]
+        if provider not in providers:
+            providers[provider] = []
+        providers[provider].append(model["id"])
+    output = []
+    for provider, models in providers.items():
+        output.append(f"Provider: {provider}")
+        for model in models:
+            output.append(f"    - {model}")
+    print("\n".join(output))
+
+    print(f"Now, fire up novelcrafter and enjoy plain text files for all of your chats.")
     print(f"For this chat session see:")
     print(f"{full_path}")
-    print(f"***********************************************************\n")
+    print(f"******************************************************************************\n")
 
     # ready to handle proxy requests from novelcrafter or whatever:
     yield
@@ -147,10 +174,28 @@ async def list_models():
 async def chat_completion(request: Request):
     # need Request as json to get the requested model and stream:
     request_dict = await request.json()
+    # print(f"\nrequest_dict:\n{request_dict}\n")
 
     model_requested = request_dict.get("model", "keys2text-mock")
-    # find the 'owned_by' value (i.e. provider) for the given model name:
-    provider = next((model["owned_by"] for model in all_models["data"] if model["id"] == model_requested), None)
+
+    if "/" in model_requested:
+        provider, model_requested = model_requested.split("/", 1)
+    else:
+        provider = None  # Handle cases where no prefix is present
+
+    print(f"Requested Model (without provider): {model_requested}, Provider: {provider}")
+
+    # # find the 'owned_by' value (i.e. provider) for the given model name:
+    # provider_from_all_models = next(
+    #     (model["owned_by"] for model in all_models["data"] if model["id"] == model_requested),
+    #     None
+    # )
+    # print(f"Matched Provider from all_models: {provider_from_all_models}")
+
+
+    # model_requested = request_dict.get("model", "keys2text-mock")
+    # # find the 'owned_by' value (i.e. provider) for the given model name:
+    # provider = next((model["owned_by"] for model in all_models["data"] if model["id"] == model_requested), None)
 
     stream_requested = request_dict.get('stream', False)
 
