@@ -7,7 +7,7 @@ existing code and effortlessly switch between providers—Anthropic, Google AI S
 OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configuring your API keys**.
 
 
-[![A video of installing and using Keys2Text Proxy with novelcrafter](https://img.youtube.com/vi/fzCOVpSOtjM/0.jpg)](https://youtube.com/live/fzCOVpSOtjM)
+[![A video of installing and using Keys2Text Proxy with novelcrafter](https://img.youtube.com/vi/RpDX92mDYIY/0.jpg)](https://youtube.com/live/RpDX92mDYIY)
 
 ## Intro blurb used on novelcrafter's discord
 
