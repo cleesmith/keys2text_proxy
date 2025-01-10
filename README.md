@@ -1,7 +1,7 @@
 # Keys2Text Proxy
 
 Keys2Text Proxy is a Python-based application that acts as an **API proxy server**, 
-offering **full OpenAI API compatibility** while seamlessly routing requests to multiple 
+offering **OpenAI API compatibility** while seamlessly routing requests to multiple 
 AI providers using your own API keys. You can use the familiar OpenAI endpoints in your 
 existing code and effortlessly switch between providers—Anthropic, Google AI Studio, Groq, 
 OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configuring your API keys**.
@@ -19,7 +19,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
   Keys2Text Proxy is a Python FastAPI based app that is free and open-sourced.<br>
   This technology relies on two key foundations: the essential infrastructure provided by AI companies and their APIs, along with innovative writing tools like novelcrafter that help bring these capabilities to life.
 
-- **Full OpenAI API Compatibility**  
+- **OpenAI API Compatibility**  
   Mimics OpenAI's endpoints and request/response formats, but only the text-based chat completion endpoints.<br>
   And now that each AI provider returns a list of available models by using `client.models.list()` the app can stay up-to-date with model releases.
 

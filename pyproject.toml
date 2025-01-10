@@ -6,9 +6,9 @@ build-backend = "setuptools.build_meta"
 [project]
 # Core project metadata
 name = "keys2text_proxy"
-version = "2025.01.1.4"
+version = "2025.01.1.10"
 description = "Keys2Text Proxy is a Python-based application that acts as an API proxy server, offering full OpenAI API compatibility while seamlessly routing requests to multiple AI providers using your own API keys."
-readme = "README.md"
+readme = "DESCRIPTION.md"
 requires-python = ">=3.10"
 
 # License specification
@@ -36,7 +36,8 @@ dependencies = [
     "google-generativeai==0.8.3",
     "groq==0.13.1",
     "openai==1.59.3",
-    "uvicorn==0.34.0"
+    "uvicorn==0.34.0",
+    "python-dotenv==1.0.1"
 ]
 
 # Entry points for command-line scripts
