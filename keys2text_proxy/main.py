@@ -96,7 +96,7 @@ async def lifespan(app: FastAPI):
 
     print(f"\n***********************************************************")
     print(f"Welcome to Keys2Text Proxy to AI providers and chat models!")
-    print(f". . . standby gathering a list of models based on your provider API keys:")
+    print(f". . . STANDBY ... gathering a list of models based on your provider API keys:")
 
     for provider, handlers in provider_to_api_handler.items():
         models = None
@@ -179,14 +179,14 @@ async def chat_completion(request: Request):
 
     # find the 'owned_by' value (i.e. provider) for the given model name:
     provider = next((model["owned_by"] for model in all_models["data"] if model["id"] == model_requested), None)
-    print(f"chat_completion: before '/' removal ... requested Model={model_requested} via Provider={provider}")
+    # print(f"chat_completion: before '/' removal ... requested Model={model_requested} via Provider={provider}")
 
     if "/" in model_requested:
         provider, model_requested = model_requested.split("/", 1)
     else:
         provider = None
 
-    print(f"chat_completion: requested Model={model_requested} via Provider={provider}")
+    # print(f"chat_completion: requested Model={model_requested} via Provider={provider}")
 
     stream_requested = request_dict.get('stream', False)
     response_type = "stream" if stream_requested else "non_stream"
