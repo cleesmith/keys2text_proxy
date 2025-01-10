@@ -15,11 +15,17 @@ from fastapi.responses import StreamingResponse, JSONResponse
 import google.generativeai as genai
 from google.generativeai.types.generation_types import GenerateContentResponse
 
+from dotenv import load_dotenv
+load_dotenv()
+api_key = os.getenv("GEMINI_API_KEY")
+if api_key:
+	print(">>> GEMINI_API_KEY found.")
+
 default_model = 'gemini-1.5-pro'
 
 async def google_models():
 	try:
-		genai.configure(api_key=os.environ['GEMINI_API_KEY'])
+		genai.configure(api_key=api_key)
 		models = []
 		list_of_models = genai.list_models(request_options={"timeout": 10.0})
 		for model in list_of_models:
@@ -235,9 +241,11 @@ def generate_content_response_to_dict(response, model):
 async def chat_completion_json(request_data, chat_file):
 	try:
 		model = request_data.get('model', default_model)
+		if "/" in model:
+			ignored, model = model.split("/", 1)
 		params = convert_request_for_gemini(request_data)
 		log_me_request(chat_file, model, request_data)
-		genai.configure(api_key=os.environ['GEMINI_API_KEY'])
+		genai.configure(api_key=api_key)
 		client = genai.GenerativeModel(model)
 		response = client.generate_content(**params)
 		response_dict = generate_content_response_to_dict(response, model)
@@ -264,9 +272,13 @@ async def chat_completion_json(request_data, chat_file):
 async def chat_completion_stream(request_data, chat_file):
 	try:
 		model = request_data.get('model', default_model)
+		print(f"... before '/' chat_completion_stream: model={model}")
+		if "/" in model:
+			ignored, model = model.split("/", 1)
+		print(f"@@@ chat_completion_stream: model={model}")
 		params = convert_request_for_gemini(request_data)
 		log_me_request(chat_file, model, request_data)
-		genai.configure(api_key=os.environ['GEMINI_API_KEY'])
+		genai.configure(api_key=api_key)
 		client = genai.GenerativeModel(model)
 		response = client.generate_content(**params, stream=True)
 		c = 1

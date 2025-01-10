@@ -57,7 +57,7 @@ all_models = {
     "object": "list",
     "data": [
         {
-            "id": "keys2text-mock",
+            "id": "keys2text/keys2text-mock",
             "object": "model",
             "created": datetime_to_timestamp(datetime.datetime(2025, 1, 1)),
             "owned_by": "keys2text"
@@ -172,35 +172,26 @@ async def list_models():
 
 @app.post("/v1/chat/completions")
 async def chat_completion(request: Request):
-    # need Request as json to get the requested model and stream:
+    # need Request as json to get the requested model and other settings:
     request_dict = await request.json()
-    # print(f"\nrequest_dict:\n{request_dict}\n")
 
-    model_requested = request_dict.get("model", "keys2text-mock")
+    model_requested = request_dict.get("model", "keys2text/keys2text-mock")
+
+    # find the 'owned_by' value (i.e. provider) for the given model name:
+    provider = next((model["owned_by"] for model in all_models["data"] if model["id"] == model_requested), None)
+    print(f"chat_completion: before '/' removal ... requested Model={model_requested} via Provider={provider}")
 
     if "/" in model_requested:
         provider, model_requested = model_requested.split("/", 1)
     else:
-        provider = None  # Handle cases where no prefix is present
+        provider = None
 
-    print(f"Requested Model (without provider): {model_requested}, Provider: {provider}")
-
-    # # find the 'owned_by' value (i.e. provider) for the given model name:
-    # provider_from_all_models = next(
-    #     (model["owned_by"] for model in all_models["data"] if model["id"] == model_requested),
-    #     None
-    # )
-    # print(f"Matched Provider from all_models: {provider_from_all_models}")
-
-
-    # model_requested = request_dict.get("model", "keys2text-mock")
-    # # find the 'owned_by' value (i.e. provider) for the given model name:
-    # provider = next((model["owned_by"] for model in all_models["data"] if model["id"] == model_requested), None)
+    print(f"chat_completion: requested Model={model_requested} via Provider={provider}")
 
     stream_requested = request_dict.get('stream', False)
-
     response_type = "stream" if stream_requested else "non_stream"
     default_handler = {"stream": mock_chat_stream, "non_stream": mock_chat_json}
+
     model_handler = provider_to_api_handler.get(provider, default_handler)[response_type]
 
     if stream_requested:

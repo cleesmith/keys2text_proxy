@@ -13,11 +13,17 @@ from fastapi.responses import StreamingResponse, JSONResponse
 import anthropic
 from anthropic import Anthropic
 
+from dotenv import load_dotenv
+load_dotenv()
+api_key = os.getenv("ANTHROPIC_API_KEY")
+if api_key:
+	print(">>> ANTHROPIC_API_KEY found.")
+
 
 async def anthropic_models():
 	try:
 		client = anthropic.Anthropic(
-			api_key=os.environ['ANTHROPIC_API_KEY'],
+			api_key=api_key,
 			max_retries=0,
 		)
 		models = client.models.list(limit=1000) # default=20
@@ -31,8 +37,11 @@ def word_count(s):
 	return len(re.findall(r'\w+', s))
 
 def extract_chat_params(request_data):
+	model_requested = request_data['model']
+	if "/" in model_requested:
+		ignored, model_requested = model_requested.split("/", 1)
 	params = {
-		'model': request_data['model'],
+		"model": model_requested,
 		'messages': [msg for msg in request_data['messages'] if msg['role'] != 'system'],
 		'max_tokens': max(1, request_data.get('max_tokens', 4000))  # ensure min value of 1
 	}
@@ -195,7 +204,7 @@ def log_ai_response_error(chat_file_name, model, e):
 async def chat_completion_json(request_data, chat_file):
 	# https://github.com/anthropics/anthropic-sdk-python/blob/2dfb899e34a785343ef07ad4cd0ddde8d37a7f74/README.md?plain=1#L279
 	client = Anthropic(
-		api_key=os.environ.get("ANTHROPIC_API_KEY"), 
+		api_key=api_key, 
 		max_retries=0,
 		timeout=60.0
 	)
@@ -236,7 +245,7 @@ async def chat_completion_json(request_data, chat_file):
 async def chat_completion_stream(request_data, chat_file):
 	# https://github.com/anthropics/anthropic-sdk-python/blob/2dfb899e34a785343ef07ad4cd0ddde8d37a7f74/README.md?plain=1#L279
 	client = Anthropic(
-		api_key=os.environ.get("ANTHROPIC_API_KEY"), 
+		api_key=api_key, 
 		max_retries=0,
 		timeout=60.0
 	)

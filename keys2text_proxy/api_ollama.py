@@ -15,7 +15,7 @@ from openai import OpenAI
 
 async def ollama_models():
 	try:
-		client = OpenAI(base_url='http://localhost:11434/v1/', api_key='ollama')
+		client = OpenAI(base_url='http://127.0.0.1:11434/v1/', api_key='ollama')
 		models = client.models.list()
 		model_ids = [model.id for model in models.data]
 		chat_models = sorted(model_ids)
@@ -28,9 +28,12 @@ def word_count(s):
 
 def extract_request_data(request_data):
 	# initialize a dictionary with all possible OpenAI API request parameters
+	model_requested = request_data.get('model')
+	if "/" in model_requested:
+		ignored, model_requested = model_requested.split("/", 1)
 	params = {
 		"messages": request_data.get('messages'),
-		"model": request_data.get('model'),
+		"model": model_requested,
 		"frequency_penalty": request_data.get('frequency_penalty'),
 		"logit_bias": request_data.get('logit_bias'),
 		"logprobs": request_data.get('logprobs'),

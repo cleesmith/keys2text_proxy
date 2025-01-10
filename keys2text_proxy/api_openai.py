@@ -12,11 +12,17 @@ from fastapi.responses import StreamingResponse, JSONResponse
 
 from openai import OpenAI
 
+from dotenv import load_dotenv
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
+if api_key:
+	print(">>> OPENAI_API_KEY found.")
+
 
 async def openai_models():
 	try:
 		client = OpenAI(
-			api_key=os.environ['OPENAI_API_KEY'],
+			api_key=api_key,
 			timeout=5.0,
 			max_retries=0, 
 		)
@@ -32,9 +38,12 @@ def word_count(s):
 
 def extract_request_data(request_data):
 	# initialize a dictionary with all possible OpenAI API request parameters
+	model_requested = request_data.get('model')
+	if "/" in model_requested:
+		ignored, model_requested = model_requested.split("/", 1)
 	params = {
 		"messages": request_data.get('messages'),
-		"model": request_data.get('model'),
+		"model": model_requested,
 		"frequency_penalty": request_data.get('frequency_penalty'),
 		"logit_bias": request_data.get('logit_bias'),
 		"logprobs": request_data.get('logprobs'),
@@ -205,7 +214,7 @@ async def chat_completion_json(request_data, chat_file):
 			# )
 			# raise Exception(f"Error calling: {model}")
 		client = OpenAI(
-			api_key=os.environ['OPENAI_API_KEY'],
+			api_key=api_key,
 			timeout=30.0,
 			max_retries=0, 
 		)
@@ -222,7 +231,7 @@ async def chat_completion_stream(request_data, chat_file):
 	model = params.get('model', None)
 	log_me_request(chat_file, model, request_data)
 	client = OpenAI(
-		api_key=os.environ['OPENAI_API_KEY'],
+		api_key=api_key,
 		timeout=30.0,
 		max_retries=0, 
 	)

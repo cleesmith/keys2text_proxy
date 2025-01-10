@@ -15,7 +15,7 @@ from openai import OpenAI
 
 async def lmstudio_models():
 	try:
-		client = OpenAI(base_url="http://localhost:5506/v1", api_key="lm-studio")
+		client = OpenAI(base_url="http://127.0.0.1:5506/v1", api_key="lm-studio")
 		models = client.models.list()
 		model_ids = [model.id for model in models.data]
 		chat_models = sorted(model_ids)
@@ -45,9 +45,12 @@ def extract_request_data(request_data):
 	}
 	'''
 	# initialize a dictionary with all possible OpenAI API request parameters
+	model_requested = request_data.get('model')
+	if "/" in model_requested:
+		ignored, model_requested = model_requested.split("/", 1)
 	params = {
 		"messages": request_data.get('messages'),
-		"model": request_data.get('model'),
+		"model": model_requested,
 		"frequency_penalty": request_data.get('frequency_penalty'),
 		"logit_bias": request_data.get('logit_bias'),
 		"logprobs": request_data.get('logprobs'),
@@ -209,7 +212,7 @@ async def chat_completion_json(request_data, chat_file):
 	model = params.get('model', None)
 	log_me_request(chat_file, model, request_data)
 	# fixme don't hardcode this, coz the user has to start the LM Studio server:
-	client = OpenAI(base_url="http://localhost:5506/v1", api_key="lm-studio")
+	client = OpenAI(base_url="http://127.0.0.1:5506/v1", api_key="lm-studio")
 	response = client.chat.completions.create(**params)
 	response_dict = response.to_dict()
 	log_ai_response(chat_file, model, response_dict)
@@ -221,7 +224,7 @@ async def chat_completion_stream(request_data, chat_file):
 	model = params.get('model', None)
 	log_me_request(chat_file, model, request_data)
 	# fixme don't hardcode this, coz the user has to start the LM Studio server:
-	client = OpenAI(base_url="http://localhost:5506/v1", api_key="lm-studio")
+	client = OpenAI(base_url="http://127.0.0.1:5506/v1", api_key="lm-studio")
 	response = client.chat.completions.create(**params)
 	result = ""
 	for chunk in response:
