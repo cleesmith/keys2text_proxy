@@ -224,8 +224,8 @@ set OLLAMA_API_KEY=ollama
 
 - **novelcrafter**
 
-  Keys2Text was written for and tested using [novelcrafter](https://www.novelcrafter.com)<br>
-  Keys2Text handles CORS so your web browser can perform behind the scenes<br>
+  - Keys2Text was written for and tested using [novelcrafter](https://www.novelcrafter.com)<br>
+  - Keys2Text handles CORS so your web browser can perform behind the scenes<br>
   local `fetch`-es to your Keys2Text Proxy server.<br>
 
 > Personally, for `novelcrafter` settings I use `LM Studio` in `AI Connections` and change the port.<br>
