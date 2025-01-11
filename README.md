@@ -248,7 +248,7 @@ set OLLAMA_API_KEY=ollama
 ## Roadmap
 
 - **Additional Providers**  
-  While we (*who we? 🤔*) already support several popular AI services, <br>
+  While we (*who is **we**? 🤔*) already support several popular AI services, <br>
   the proxy is designed to be extended easily (*well, if you can code python/fastapi/generator-yielding/streaming-nonstreaming-apis/wrangle-json-and-text, then sure*).<br> 
   We plan to continually add new integrations.<br> 
   Do *we*, maybe, perhaps a new AI provider will emerge someday or overnight.🥸
