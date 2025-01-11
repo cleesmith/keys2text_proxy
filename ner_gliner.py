@@ -1,0 +1,29 @@
+from gliner import GLiNER
+
+# Initialize GLiNER with the base model
+# model = GLiNER.from_pretrained("urchade/gliner_medium-v2.1")
+model = GLiNER.from_pretrained("urchade/gliner_base")
+
+# Sample text for entity prediction
+text = """
+I went in for an oil change and came out with a change of life. Spoiler alert; never marry your mechanic! After the jump-start of a honeymoon, he and his gym bag moved into my house. It only took me a few more days to realize he’s just a boy, yes, a boy trapped inside a man's overcoat of all muscles covered in oily grease. A real stunner in the dim lights of an auto repair shop, emphasis on the dim lighting. Surely I wasn’t this gullible at forty-five years of age, but I fell in. Every day, he morphed into more of a son, at twenty years old, and not the husband I desired, but an undomesticated creature who never did much of anything. 
+Despite the rose-colored glasses, I should have noticed a few of the red flags all around me, with the biggest and reddest being my own apparent cougar nature. Not a complimentary slang term, that word cougar; meaning an older woman in a romantic relationship with a younger man. I’ve only ever lived in this old house, my entire life, from birth then home schooled within its walls, and now I wondered what the neighbors thought. Once I thought they expected to see me gardening odd plants, or herding cats, but never having a young stud of a husband.
+What the hell had happened? I thought, looking back; it seemed I had manifested a real puzzle, yet despite the changes, my actual day-to-day existence remained unchanged. Unchanged, unless he wanted something: food, laundry, sleep, or all three. Mostly though, every day continued on as before; reading, doing crossword puzzles (passionately), and trial-and-error knitting that resulted in enormous stacks of oddly shaped blankets. Well, that continued as the story of my life, but before him, there had been a dash of longing for the greener pastures of romance. Perhaps wanting was better than having, because it turned out that “dash”, aka hubby, and his “greener pastures” enclosed me like an invisible barbed wire fence, different but just as sharp as the real thing. Even with his ever-lessening morning and evening presence, my life seemed to remain much ado about nothing.
+Then “the something” arrived obliterating “the nothing” entirely, oh no not on little cat’s feet, but dropped off, or in, by a fabled stork. Suddenly, every day I awoke to a bloated face staring back at me in the bathroom mirror. Both the baby and my head grew, as my tolerance and temper grew in opposite directions. I felt like the Hindenburg looked, well, before the fire. But I was a blimp firmly anchored to the ground by a passenger on board, and rarely by another passenger that is briefly on board, so to speak, if less than 30 seconds could be called boarding. I thought that the Big Bang Theory as it was called might be true, something from nothing, given how close to nothing that “less than 30 seconds” seemed to me. The hubby, named Doofus in my head, not out loud, not yet, had somehow procreated itself; he got me pregnant. Again, in my head, I had tried out other names for him: Sofa (since the shop mechanics are always sitting on it), Wingnut, Spanner, Grease Monkey, Banger or Lube Job (so not appropriate for him), Monkey Beating an Engine with a Hammer (I liked this one, a contender), Oil Burner, and Cletus (so close but not quite Doofus).
+With lessening tolerance and rising temper, Doofus now gave me a wide berth. I was pretty sure that someone younger had punched his ticket, and lowered their gangplank for him to board. There was that tug of an imminent launch, geez, this nautical speak derived from my bloating, I was certain. Of course, a baby will not stay around to help another baby. My wish, please don’t let this baby in my belly be a boy, sure I will love it, but I just couldn’t mother the two of them. Did I forget to mention, my car remained unreliable and started only when it felt like it. He was not even a decent mechanic. His only solution, “I’ll jump it for you, hun!” which took him an hour as he wrestled with the theory of jumper cables, red-to-red or red-to-black, as sparks flew. 
+In the end he started none of my engines, so our break up happened, divorce in the mail, so on and so forth. Now, Doofus seemed happy, which he always was, no matter what, with a new woman who appeared just about old enough to be his daughter. The baby continued growing inside me. Doofus wanted no contact. Maybe that was for the best, but time will tell. Sometimes the baby reminded me of him when my belly felt like a jungle with a Tarzan in there, swinging on that cord and planting both feet down hard on my kidneys. I peed often, yet another chore on an ever increasing to-do list. I still hoped for a Sheena, a queen of the jungle, and not another swinging you know what.
+The tummy scan said it was a girl, and a girl came out. After all of that, the birth was easy-peasy. Time passed, Doofus exited stage left, yet I still spend much of my days reading and doing crosswords, but I replaced knitting with child care. It turned out that “the nothing” of my life acted like an elixir that manifested a beautiful something. She became a bundle of love, but occasionally there flashed a fleeting glimpse of a future wild child in her eyes—dad.    
+"""
+
+# Labels for entity prediction
+# Most GLiNER models should work best when entity types are in lower case or title case
+labels = ["Person", "Award", "Date", "Competitions", "Teams"]
+
+# Perform entity prediction
+entities = model.predict_entities(text, labels, threshold=0.5)
+
+# Display predicted entities and their labels
+print(f"\n\n")
+for entity in entities:
+	print(entity["text"], "=>", entity["label"])
+
