@@ -273,7 +273,7 @@ This project is licensed under the [MIT License](LICENSE).
 With **Keys2Text Proxy**, you can unify your AI workflows under a single, <br>
 OpenAI-compatible interface—while retaining the freedom to choose any provider that best fits your needs. 
 
-> *If any of the above reads like AI writing, for example, all of that "we" speak, there is only "I" as in "me" ... 🙋🏽‍♂️ guilty.*
+> *If any of the above reads like AI writing, for example, all of that "we" speak, well, there is only "I" as in "me" ... 🙋🏽‍♂️ guilty.*
 
 ---
 
