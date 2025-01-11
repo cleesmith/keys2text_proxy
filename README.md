@@ -11,7 +11,7 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ## Intro blurb used on novelcrafter's discord
 
-> Keys2Text Proxy is a Python FastAPI application that lets you use multiple AI providers (OpenAI, Anthropic, Google AI Studio, Groq, OpenRouter, DeepSeek, LM Studio, and Ollama) through a single OpenAI-compatible proxy server using your own API keys. It runs locally on your computer, saves chat history as plain text, and works nicely with NovelCrafter. The code is open source and free to use forever.
+> Keys2Text Proxy is a Python FastAPI application that lets you use multiple AI providers (OpenAI, Anthropic, Google AI Studio, Groq, OpenRouter, DeepSeek, LM Studio, and Ollama) through a single OpenAI-compatible proxy server using your own API keys. It runs locally on your computer, saves chat history as plain text, and works nicely with novelcrafter. The code is open source and free to use forever.
 
 ## Key Features
 
@@ -142,38 +142,62 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 - **Conda environment**: Double-check you’ve activated it (`conda activate keysapp`) before starting the proxy.
 
 
-After configuring your API keys, Keys2Text Proxy will start on your machine, ready for NovelCrafter or any other app that needs it.
+After configuring your API keys, Keys2Text Proxy will start on your machine, ready for novelcrafter or any other app that needs it.
 
 ---
 
-2. **Configuration of API 🔑 keys 🔑**  
-- Set your API keys as environment variables using the appropriate command for your operating system:
+## Configuration of API 🔑 keys 🔑
+
+You can set up your API keys in two ways:
+
+### Option A: Using a .env file (Recommended)
+
+1. Locate the `.example.env` file in the project root directory
+2. Make a copy of this file and/or rename it to `.env`
+3. Open the `.env` file and replace the placeholder values with your actual API keys:
+
+```env
+OPENAI_API_KEY=api-key-here
+ANTHROPIC_API_KEY=api-key-here
+GOOGLE_AI_STUDIO_API_KEY=api-key-here
+GROQ_API_KEY=api-key-here
+OPENROUTER_API_KEY=api-key-here
+DEEPSEEK_API_KEY=api-key-here
+# Note: these are not used and not required:
+LM_STUDIO_API_KEY=lmstudio
+OLLAMA_API_KEY=ollama
+```
+
+### Option B: Using Environment Variables
+
+If you prefer setting environment variables directly:
 
 #### For Linux/macOS:
-  ```bash
-  export OPENAI_API_KEY=api-key-here
-  export ANTHROPIC_API_KEY=api-key-here
-  export GOOGLE_AI_STUDIO_API_KEY=api-key-here
-  export GROQ_API_KEY=api-key-here
-  export OPENROUTER_API_KEY=api-key-here
-  export DEEPSEEK_API_KEY=api-key-here
-  # note: these are not used and not required:
-  export LM_STUDIO_API_KEY=lmstudio
-  export OLLAMA_API_KEY=ollama
-  ```
+```bash
+export OPENAI_API_KEY=api-key-here
+export ANTHROPIC_API_KEY=api-key-here
+export GOOGLE_AI_STUDIO_API_KEY=api-key-here
+export GROQ_API_KEY=api-key-here
+export OPENROUTER_API_KEY=api-key-here
+export DEEPSEEK_API_KEY=api-key-here
+# note: these are not used and not required:
+export LM_STUDIO_API_KEY=lmstudio
+export OLLAMA_API_KEY=ollama
+```
 
 #### For Windows:
-  ```bash
-  set OPENAI_API_KEY=api-key-here
-  set ANTHROPIC_API_KEY=api-key-here
-  set GOOGLE_AI_STUDIO_API_KEY=api-key-here
-  set GROQ_API_KEY=api-key-here
-  set OPENROUTER_API_KEY=api-key-here
-  set DEEPSEEK_API_KEY=api-key-here
-  REM note: these are not used and not required:
-  set LM_STUDIO_API_KEY=lmstudio
-  set OLLAMA_API_KEY=ollama
-  ```
+```bash
+set OPENAI_API_KEY=api-key-here
+set ANTHROPIC_API_KEY=api-key-here
+set GOOGLE_AI_STUDIO_API_KEY=api-key-here
+set GROQ_API_KEY=api-key-here
+set OPENROUTER_API_KEY=api-key-here
+set DEEPSEEK_API_KEY=api-key-here
+REM note: these are not used and not required:
+set LM_STUDIO_API_KEY=lmstudio
+set OLLAMA_API_KEY=ollama
+```
+
 - Each key is only used if/when you send requests to a model from that provider.
 
 ---
