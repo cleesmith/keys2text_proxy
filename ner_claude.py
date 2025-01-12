@@ -645,11 +645,138 @@ print(f"words in story: {len(story.split())}")
 # )
 # print(message.content)
 
+'''
+system_message = """
+Please analyze the following story and extract entities with extra details 
+that could help a writer. Provide them in a JSON object with these keys:
+
+- characters: (array of objects)
+    - name
+    - demeanor
+    - attitude
+    - physical_description
+    - motivations
+    - conflicts
+    - backstory
+    - growth_opportunities
+    - relationship_dynamics
+    - archetype
+- places: (array of strings)
+- times: (array of strings)
+- events: (array of objects)
+    - name
+    - characters_involved
+    - location
+    - cause
+    - effect
+    - thematic_role
+- objects: (array of strings)
+- relationships: (array of strings)
+- themes: (array of strings)
+- symbols: (array of objects)
+    - name
+    - meaning
+- unresolved_questions: (array of strings)
+
+ONLY return human-readable text instead of JSON. Do not include any extra commentary.
+"""
+'''
+
+system_message = """
+Please analyze the following story and extract entities with extra details 
+that could help a writer. Provide them in a JSON object with these keys:
+
+- characters: (array of objects)
+    - name
+    - demeanor
+    - attitude
+    - physical_description
+    - motivations
+    - conflicts
+    - backstory
+    - growth_opportunities
+    - relationship_dynamics
+    - archetype
+
+- places: (array of strings)
+
+- times: (array of strings)
+
+- events: (array of objects)
+    - name
+    - characters_involved
+    - location
+    - cause
+    - effect
+    - thematic_role
+
+- objects: (array of strings)
+
+- relationships: (array of strings)
+
+- themes: (array of strings)
+
+- symbols: (array of objects)
+    - name
+    - meaning
+
+- unresolved_questions: (array of strings)
+
+Additionally, include these expanded categories for richer fictional details:
+
+- organizations_factions: (array of objects)
+    - name
+    - members
+    - power_structure
+    - conflicts
+    - significance
+
+- titles_roles: (array of objects)
+    - title_or_role
+    - assigned_to (character or group)
+    - significance
+
+- species_creatures: (array of strings)
+
+- magical_supernatural_sci_fi_elements: (array of objects)
+    - name
+    - type (e.g., spell, artifact, technology)
+    - significance
+    - effects
+
+- deities_supernatural_entities: (array of objects)
+    - name
+    - domain
+    - relationships
+    - significance
+
+- cultural_items_concepts: (array of strings)
+
+- groups_of_people_collectives: (array of objects)
+    - name
+    - purpose
+    - notable_members
+    - relevance_to_plot
+
+- technology_vehicles: (array of strings)
+
+- plot_devices_macguffins: (array of objects)
+    - name
+    - significance
+    - conflicts
+    - potential_resolutions
+
+- abstract_symbolic_entities: (array of objects)
+    - name
+    - representation
+    - significance
+"""
+
 with client.messages.stream(
     model="claude-3-5-sonnet-20241022",
     max_tokens=8192,
-    temperature=0.2,
-    system="\t\tPlease analyze the following story and extract entities with extra details \n\t\tthat could help a writer. Provide them in a JSON object with these keys:\n\n\t\t- characters: (array of objects)\n\t\t\t- name\n\t\t\t- demeanor\n\t\t\t- attitude\n\t\t\t- physical_description\n\t\t\t- motivations\n\t\t\t- conflicts\n\t\t\t- backstory\n\t\t\t- growth_opportunities\n\t\t\t- relationship_dynamics\n\t\t\t- archetype\n\t\t- places: (array of strings)\n\t\t- times: (array of strings)\n\t\t- events: (array of objects)\n\t\t\t- name\n\t\t\t- characters_involved\n\t\t\t- location\n\t\t\t- cause\n\t\t\t- effect\n\t\t\t- thematic_role\n\t\t- objects: (array of strings)\n\t\t- relationships: (array of strings)\n\t\t- themes: (array of strings)\n\t\t- symbols: (array of objects)\n\t\t\t- name\n\t\t\t- meaning\n\t\t- unresolved_questions: (array of strings)\n\n\t\tONLY return human readable text instead of JSON. Do not include any extra commentary.\n\n",
+    temperature=0.0,
+    system=system_message,
     messages=[
         {
             "role": "user",
@@ -665,4 +792,178 @@ with client.messages.stream(
   for text in stream.text_stream:
       print(text, end="", flush=True)
 
+
+'''
+advice from the free claude 3.5 sonnet explanatory:
+
+# Story Analysis and Named Entity Recognition System for Creative Fiction
+
+# Configuration for the analysis system
+ANALYSIS_CONFIG = {
+    "system": """
+        Please analyze the following story and extract entities with extra details 
+        that could help a writer. Provide them in a JSON object with these keys:
+
+        - characters: (array of objects)
+            - name
+            - demeanor
+            - attitude
+            - physical_description
+            - motivations
+            - conflicts
+            - backstory
+            - growth_opportunities
+            - relationship_dynamics
+            - archetype
+        - places: (array of strings)
+        - times: (array of strings)
+        - events: (array of objects)
+            - name
+            - characters_involved
+            - location
+            - cause
+            - effect
+            - thematic_role
+        - objects: (array of strings)
+        - relationships: (array of strings)
+        - themes: (array of strings)
+        - symbols: (array of objects)
+            - name
+            - meaning
+        - unresolved_questions: (array of strings)
+    """
+}
+
+# Named Entity Recognition Labels for Creative Fiction
+NER_LABELS = {
+    # Character Entities
+    "CHARACTER": {
+        "NAME": "CHARACTER_NAME",             # Full names and nicknames
+        "TITLE": "CHARACTER_TITLE",           # Formal titles and honorifics
+        "ROLE": "CHARACTER_ROLE",             # Story function (protagonist, antagonist)
+        "SPECIES": "CHARACTER_SPECIES",       # Character race/species/type
+        "RELATIONSHIP": "CHARACTER_RELATION", # Family/social connections
+        "OCCUPATION": "CHARACTER_OCCUPATION", # Character's job or role in society
+        "TRAIT": "CHARACTER_TRAIT",           # Personality or physical characteristics
+        "GROUP": "CHARACTER_GROUP"            # Affiliations and group memberships
+    },
+    
+    # Location Entities
+    "LOCATION": {
+        "REAL": "LOCATION_REAL",              # Existing real-world places
+        "FICTIONAL": "LOCATION_FICTIONAL",    # Imagined places
+        "MYTHICAL": "LOCATION_MYTHICAL",      # Legendary or supernatural realms
+        "SETTING": "LOCATION_SETTING",        # Types of locations (castle, ship)
+        "SUBLOCATION": "LOCATION_SUB",        # Areas within larger locations
+        "DIRECTION": "LOCATION_DIRECTION",    # Geographical directions/positions
+        "BOUNDARY": "LOCATION_BOUNDARY"       # Borders, limits, thresholds
+    },
+    
+    # Temporal Entities
+    "TIME": {
+        "PERIOD": "TIME_PERIOD",             # Ages, eras, epochs
+        "DATE": "TIME_DATE",                 # Specific dates (real or fictional)
+        "MARKER": "TIME_MARKER",             # Events marking time
+        "DURATION": "TIME_DURATION",         # Time spans
+        "CYCLE": "TIME_CYCLE",               # Recurring time patterns
+        "AGE": "TIME_AGE"                    # Character or world ages
+    },
+    
+    # Object Entities
+    "OBJECT": {
+        "MAGICAL": "OBJECT_MAGICAL",          # Enchanted or supernatural items
+        "TECHNOLOGICAL": "OBJECT_TECH",       # Scientific or advanced devices
+        "SIGNIFICANT": "OBJECT_SIGNIFICANT",  # Plot-important items
+        "EVERYDAY": "OBJECT_COMMON",          # Regular items with story significance
+        "WEAPON": "OBJECT_WEAPON",            # Arms and armaments
+        "ARTIFACT": "OBJECT_ARTIFACT",        # Ancient or powerful objects
+        "CLOTHING": "OBJECT_CLOTHING"         # Significant garments or accessories
+    },
+    
+    # Abstract Entities
+    "ABSTRACT": {
+        "ORGANIZATION": "ABSTRACT_ORG",       # Groups and institutions
+        "MAGIC_SYSTEM": "ABSTRACT_MAGIC",     # Magical rules and systems
+        "RELIGION": "ABSTRACT_RELIGION",      # Belief systems
+        "LANGUAGE": "ABSTRACT_LANGUAGE",      # Languages and communication systems
+        "CONCEPT": "ABSTRACT_CONCEPT",        # Important ideas and concepts
+        "LAW": "ABSTRACT_LAW",                # Rules and regulations
+        "CUSTOM": "ABSTRACT_CUSTOM"           # Social practices and traditions
+    },
+    
+    # Event Entities
+    "EVENT": {
+        "HISTORICAL": "EVENT_HISTORICAL",     # Past events affecting present
+        "PERSONAL": "EVENT_PERSONAL",         # Character-specific occurrences
+        "RECURRING": "EVENT_RECURRING",       # Regular happenings
+        "SUPERNATURAL": "EVENT_SUPERNATURAL", # Magical or unexplained events
+        "SOCIAL": "EVENT_SOCIAL",             # Community or group events
+        "CONFLICT": "EVENT_CONFLICT",         # Battles, fights, confrontations
+        "JOURNEY": "EVENT_JOURNEY"            # Travels and quests
+    },
+    
+    # Thematic Entities
+    "THEME": {
+        "MOTIF": "THEME_MOTIF",              # Recurring story elements
+        "SYMBOL": "THEME_SYMBOL",            # Symbolic elements
+        "MESSAGE": "THEME_MESSAGE",          # Core story messages
+        "CONFLICT": "THEME_CONFLICT",        # Central story problems
+        "EMOTION": "THEME_EMOTION"           # Emotional elements
+    }
+}
+
+# Example usage for processing text:
+def process_story(text):
+    """
+    Process a story text using both the analysis system and NER labels.
+    Returns a comprehensive analysis including entity recognition and story elements.
+    
+    Parameters:
+    text (str): The story text to analyze
+    
+    Returns:
+    dict: Analysis results including both structured story elements and recognized entities
+    """
+    story_elements = {
+        "characters": [],
+        "places": [],
+        "times": [],
+        "events": [],
+        "objects": [],
+        "relationships": [],
+        "themes": [],
+        "symbols": [],
+        "unresolved_questions": [],
+        "recognized_entities": {
+            "characters": [],
+            "locations": [],
+            "times": [],
+            "objects": [],
+            "abstracts": [],
+            "events": [],
+            "themes": []
+        }
+    }
+    
+    # Implementation would include:
+    # 1. NER processing using the defined labels
+    # 2. Story analysis following the system prompt
+    # 3. Correlation of NER results with story elements
+    # 4. Generation of detailed character profiles
+    # 5. Identification of plot structures and arcs
+    # 6. Analysis of thematic elements
+    
+    return story_elements
+
+# Example usage:
+"""
+story_text = "In the ancient kingdom of Eldara..."
+analysis = process_story(story_text)
+
+# Access results:
+characters = analysis["characters"]
+entities = analysis["recognized_entities"]
+"""
+
+'''
 
