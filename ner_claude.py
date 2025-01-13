@@ -684,8 +684,8 @@ ONLY return human-readable text instead of JSON. Do not include any extra commen
 
 system_message = """
 Please analyze the following story and extract entities with extra details 
-that could help a writer. Provide them in a JSON object with these keys:
-
+that could help a writer. 
+Provide them in a JSON object with these keys:
 - characters: (array of objects)
     - name
     - demeanor
