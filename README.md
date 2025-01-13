@@ -8,7 +8,8 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ---
 
-[Keys2Text Chat](https://github.com/cleesmith/keys2text) is similar app but independent of novelcrafter.
+[Keys2Text Chat](https://github.com/cleesmith/keys2text) is a similar app but independent of novelcrafter.<br>
+It's a standalone app also intended to capture chat conversations as plain text (no Markdown, no HTML, no XML).
 
 ---
 
