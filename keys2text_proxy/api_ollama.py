@@ -1,5 +1,6 @@
-# for novelcrafter start ollama this way:
+# for novelcrafter start ollama this way on Mac:
 # OLLAMA_ORIGINS=https://app.novelcrafter.com ollama serve
+# see: https://docs.novelcrafter.com/en/articles/8680069-connecting-to-ollama
 # api_ollama.py
 import os
 import sys
