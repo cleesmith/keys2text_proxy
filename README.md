@@ -208,7 +208,9 @@ set OLLAMA_API_KEY=ollama
 
 **Run Ollama, if installed**  
 
-> for novelcrafter start ollama this way:
+[Ollama with novelcrafter](https://docs.novelcrafter.com/en/articles/8680069-connecting-to-ollama)
+
+> for Mac do:
    ```bash
    OLLAMA_ORIGINS=https://app.novelcrafter.com ollama serve
    ```
