@@ -1,3 +1,5 @@
+# for novelcrafter start ollama this way:
+# OLLAMA_ORIGINS=https://app.novelcrafter.com ollama serve
 # api_ollama.py
 import os
 import sys

@@ -206,7 +206,16 @@ set OLLAMA_API_KEY=ollama
 
 ---
 
-3. **Run the Proxy**  
+**Run Ollama, if installed**  
+
+> for novelcrafter start ollama this way:
+   ```bash
+   OLLAMA_ORIGINS=https://app.novelcrafter.com ollama serve
+   ```
+
+---
+
+**Run the local proxy server**  
    ```bash
    keys2text_proxy
    ```
