@@ -14,11 +14,17 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 ## Key Files
 
-- **about/main_py_script.pdf**  
-- **about/main_py_mermaid.png**
+### Main:
 
-- **about/api_openai_py.pdf**  
-- **about/api_openai_py_mermaid.png**  
+- [about/main_py_script.pdf](about/main_py_script.pdf)
+
+- [about/main_py_mermaid.png](about/main_py_mermaid.png)
+
+### OpenAI API handler:
+
+- [about/api_openai_py.pdf](about/api_openai_py.pdf)
+
+- [about/api_openai_py_mermaid.png](about/api_openai_py_mermaid.png)
 
 
 > *Remember the book "A Clockwork Orange"--it becomes particularly relevant when we think about how AI systems operate on precise, mechanical rules while attempting to engage with or influence organic human behavior.*
