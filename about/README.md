@@ -20,6 +20,9 @@ OpenRouter, DeepSeek, LM Studio, Ollama, or OpenAI itself—**simply by configur
 
 - [about/main_py_mermaid.png](/about/main_py_mermaid.png)
 
+- [about/mermaid_main_py-2025-01-15-174624.png](/about/mermaid_main_py-2025-01-15-174624.png)
+
+
 ### OpenAI API handler:
 
 - [about/api_openai_py.pdf](/about/api_openai_py.pdf)
